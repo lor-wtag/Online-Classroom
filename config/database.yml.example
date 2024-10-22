@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: online_classroom_development
+
+test:
+  <<: *default
+  database: online_classroom_test
+
+production:
+  <<: *default
+  database: online_classroom_production
+  username: online_classroom
+  password: <%= ENV['ONLINE_CLASSROOM_DATABASE_PASSWORD'] %>
