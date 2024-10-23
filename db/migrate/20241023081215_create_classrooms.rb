@@ -4,7 +4,7 @@ class CreateClassrooms < ActiveRecord::Migration[7.2]
       t.integer "user_id"
       t.string "name"
       t.string "course_code"
-      t.stirng "classroom_code"
+      t.string "classroom_code"
       t.timestamps
     end
   end
