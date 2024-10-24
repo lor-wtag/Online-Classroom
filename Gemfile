@@ -23,6 +23,8 @@ group :development, :test do
 end
 
 group :test do
+  gem "rspec-rails"
+  gem "shoulda-matchers", "~> 6.0"
   gem "capybara"
   gem "factory_bot_rails"
   gem "rspec-rails"
