@@ -9,7 +9,7 @@ RSpec.describe Classroom, type: :model do
   end
 
   describe "associations" do
-    it { should belong_to(:teacher).class_name("User").with_foreign_key("user_id")}
+    it { should belong_to(:teacher).class_name("User").with_foreign_key("user_id") }
     it { should have_many(:enrollments).dependent(:destroy) }
     it { should have_many(:users).through(:enrollments) }
     it { should have_many(:assignments).dependent(:destroy) }
