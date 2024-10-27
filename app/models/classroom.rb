@@ -1,5 +1,5 @@
 class Classroom < ApplicationRecord
-  validates :name, presence: true,length: { minimum: 2, maximum: 100 }
+  validates :name, presence: true, length: { minimum: 2, maximum: 100 }
   validates :course_code, presence: true, uniqueness: true
 
   belongs_to :teacher, class_name: "User", foreign_key: "user_id"
