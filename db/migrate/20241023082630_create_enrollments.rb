@@ -6,10 +6,10 @@ class CreateEnrollments < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    add_index("enrollments",["user_id","classroom_id"])
+    add_index("enrollments", [ "user_id", "classroom_id" ])
   end
 
-  def down 
+  def down
     drop_table :enrollments
   end
 end
