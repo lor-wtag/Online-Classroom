@@ -8,7 +8,7 @@ RSpec.describe Assignment, type: :model do
   end
 
   describe "associations" do
-    it { should belong_to(:classroom)}
+    it { should belong_to(:classroom) }
     it { should have_many(:submissions).dependent(:destroy) }
     it { should have_many(:comments).dependent(:destroy) }
   end
