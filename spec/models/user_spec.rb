@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
     it { should_not allow_value("lamiya@").for(:email) }
     it { should_not allow_value("lamiygmail.@com").for(:email) }
     it { should validate_presence_of(:role) }
-    it { should define_enum_for(:role).with_values(%i[admin teacher student]) 
+    it { should define_enum_for(:role).with_values(%i[admin teacher student]) }
   end
 
   describe "associations" do
