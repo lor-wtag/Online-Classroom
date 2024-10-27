@@ -85,19 +85,27 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
-        run: |
-          bin/rails db:setup 
-          bundle exec rspec
+    - name: Install dependencies
+      run: bundle install
 
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
+    - name: Setup Database
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+      run: |
+        bin/rails db:create
+        bin/rails db:migrate
+        bin/rails db:test:prepare
+
+    - name: Run RSpec Tests
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+      run: bundle exec rspec
+
+    - name: Keep screenshots from failed system tests
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: screenshots
+        path: ${{ github.workspace }}/tmp/screenshots
+        if-no-files-found: ignore
