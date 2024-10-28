@@ -1,0 +1,31 @@
+<h1>Sign Up</h1>
+<div class="ssers new">
+<%= form_for(@user, method: "post") do |f| %>
+  <table summary= "User form field">
+        <tr>
+            <th>Name</th>
+            <td><%= f.text_field(:name)%></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td><%= f.text_field(:email)%></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td> 
+                 <%= f.select(:role, User.roles.keys.map { |role| [role.humanize, role.to_s] }, { include_blank: true }) %>
+
+            </td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td><%= f.password_field(:password)%></td>
+        </tr>
+     </table> 
+
+     <div class= "form buttons">
+         <%= f.submit("Create A User")%>
+     </div>
+
+<% end %>
+</div>
