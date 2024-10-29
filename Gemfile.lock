@@ -323,7 +323,6 @@ DEPENDENCIES
   debug
   dotenv-rails
   factory_bot_rails
-  i18n
   importmap-rails
   jbuilder
   pg (~> 1.1)
