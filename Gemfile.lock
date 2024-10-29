@@ -95,10 +95,6 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
-    debug (1.9.2)
-      irb (~> 1.10)
-      reline (>= 0.3.8)
-    diff-lcs (1.5.1)
     diff-lcs (1.5.1)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
@@ -276,12 +272,6 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.3.2)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      logger
-      rack (>= 2.2.4)
-      redis-client (>= 0.22.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -327,7 +317,6 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
-  debug
   dotenv-rails
   factory_bot_rails
   importmap-rails
@@ -339,7 +328,6 @@ DEPENDENCIES
   rubocop-rails-omakase
   selenium-webdriver
   shoulda-matchers (~> 6.0)
-  sidekiq
   sprockets-rails
   stimulus-rails
   turbo-rails
