@@ -1,2 +1,24 @@
-# Online-Classroom
-The Online Classroom Management System is a web application designed to facilitate online learning by providing a platform for teachers to create virtual classrooms, manage assignments, and enable students to access educational materials.
+# README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
