@@ -6,6 +6,6 @@ class AddIndexToUsers < ActiveRecord::Migration[7.2]
 
   def down
     remove_index :users, :email
-    remove_index :users, :role
+    remove_index :users, :role if index_exists?(:users, :role)
   end
 end
