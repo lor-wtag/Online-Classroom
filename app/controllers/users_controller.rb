@@ -29,15 +29,14 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    permitted = [:name, :email]
+    permitted = [ :name, :email ]
     if current_user && current_user.admin?
       permitted<< :role
       params.require(:user).permit(permitted)
     else
       params.require(:user).permit(permitted)
     end
-  permitted << :password if action_name == 'create' || params[:user][:password].present?
+  permitted << :password if action_name == "create" || params[:user][:password].present?
   params.require(:user).permit(permitted)
   end
-
 end
