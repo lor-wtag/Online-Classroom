@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "bootsnap", require: false
+gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 gem "importmap-rails"
 gem "jbuilder"
 gem "pg", "~> 1.1"

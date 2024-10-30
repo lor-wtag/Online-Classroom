@@ -95,6 +95,9 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
+    debug (1.9.2)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     diff-lcs (1.5.1)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
@@ -321,6 +324,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
+  debug
   dotenv-rails
   factory_bot_rails
   importmap-rails
@@ -331,6 +335,8 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails
   rubocop-rails-omakase
+  selenium-webdriver
+  shoulda-matchers (~> 6.0)
   selenium-webdriver
   shoulda-matchers (~> 6.0)
   sprockets-rails
