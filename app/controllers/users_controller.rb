@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "admin"
 
-  before_action :confirm_logged_in, except:[:create, :new]
+  before_action :confirm_logged_in, except: [ :create, :new ]
   def new
     @user=User.new
   end

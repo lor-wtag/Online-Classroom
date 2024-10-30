@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, length: { in: 10..50 }, format: { with: EMAIL_REGEX }, uniqueness: true
   validates :role, presence: true, inclusion: { in: roles.keys }
-  validates :password, presence: true, on: :create, length: {in: (8..20)}
+  validates :password, presence: true, on: :create, length: { in: (8..20) }
   has_many :classrooms, foreign_key: :user_id, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -22,7 +22,7 @@ class User < ApplicationRecord
     end
   end
 
-  def self.authenticate(user_email,password)
+  def self.authenticate(user_email, password)
     user=User.find_by(email: user_email)
     if user
       if user.password_digest==Digest::SHA256.hexdigest(password)

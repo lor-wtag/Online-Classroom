@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
       redirect_to sessions_login_path
     end
   end
-  
+
   def current_user
     if session[:user_id]
       @current_user ||= User.find_by(id: session[:user_id])
