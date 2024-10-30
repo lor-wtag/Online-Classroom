@@ -6,7 +6,6 @@
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Password</th>
             <th>Actions</th>
         </tr>
         <%@users.each do |user| %>
@@ -15,7 +14,6 @@
             <td><%= user.name%></td>
             <td><%= user.email%></td>
             <td><%= user.role%></td>
-            <td><%= user.password_digest%></td>
             <td class="actions">
                  <%=link_to("Show", user_path(user),:class => "action edit")%>
                 <%=link_to("Edit", edit_user_path(user),:class => "action edit")%>
