@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  layout "admin"
+
+  before_action :confirm_logged_in, except:[:create, :new]
   def new
     @user=User.new
   end
@@ -8,7 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id]=@user.id
       flash[:notice]="User created successfully"
-      redirect_to(sessions_landing_page_path)
+      redirect_to(home_landing_page_path)
     else
       render("new")
     end
