@@ -1,0 +1,22 @@
+<h1>Login</h1>
+<div class="login">
+    <%= form_with(model: @user, url: sessions_path) do |f| %>
+
+        <table summary="User form field">
+        <tr>
+            <th>Email</th>
+            <td><%= f.text_field :email %></td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td><%= f.password_field :password %></td>
+        </tr>
+        </table>
+
+        <div class="form buttons">
+        <%= f.submit "Login" %>
+        </div>
+    <% end %>
+
+    <%=link_to "Forgot Password?", "#"%>
+</div>

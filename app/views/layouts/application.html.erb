@@ -20,13 +20,12 @@
   <body>
     <div><%=notice%></div>
     <div><%=alert%></div>
-
     <% if user_logged_in?%>
-      <%= link_to "Profile", "#"%>
+      <%= link_to "Profile", edit_password_path(current_user.id)%>
       <%= button_to "Log out", session_path(current_user.id), method: :delete%>
     <%else%>
       <%= link_to "Sign Up?", new_user_path%>
-      <%=link_to "Login", sessions_login_path%>
+      <%=link_to "Login", new_session_path%>
     <%end%>
     <%= yield %>
   </body>
