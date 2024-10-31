@@ -9,7 +9,6 @@ class UsersController < ApplicationController
       login @user
       redirect_to root_path
     else
-      puts @user.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end

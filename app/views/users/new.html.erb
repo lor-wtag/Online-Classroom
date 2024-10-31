@@ -1,8 +1,6 @@
 <h1>Sign Up</h1>
 <div class="users new">
   <%= form_with(model: @user, local: true) do |f| %>
-
-    <!-- Error Messages Display Block -->
     <% if @user.errors.any? %>
       <div class="error-messages">
         <h2>There are errors:</h2>
@@ -14,7 +12,6 @@
       </div>
     <% end %>
 
-    <!-- User Form Fields -->
     <table summary="User form field">
       <tr>
         <th>Name</th>
@@ -25,7 +22,6 @@
         <td><%= f.text_field(:email) %></td>
       </tr>
 
-      <!-- Role Field Logic for Admin -->
       <% if current_user && current_user.admin? %>
         <tr>
           <th>Role</th>
