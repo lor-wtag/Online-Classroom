@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 gem "importmap-rails"
