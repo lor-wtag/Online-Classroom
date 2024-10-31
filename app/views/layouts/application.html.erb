@@ -18,6 +18,16 @@
   </head>
 
   <body>
+    <div><%=notice%></div>
+    <div><%=alert%></div>
+
+    <% if user_logged_in?%>
+      <%= link_to "Profile", "#"%>
+      <%= button_to "Log out", session_path(current_user.id), method: :delete%>
+    <%else%>
+      <%= link_to "Sign Up?", new_user_path%>
+      <%=link_to "Login", sessions_login_path%>
+    <%end%>
     <%= yield %>
   </body>
 </html>

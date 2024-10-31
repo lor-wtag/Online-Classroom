@@ -1,0 +1,18 @@
+<div class="login-page">
+    <h1>Please Login</h1>
+    <%=form_tag(sessions_login_path, method: "post") do %>
+    <table>
+        <tr>
+            <td><%=label_tag(:email)%></td>
+            <td><%=text_field_tag(:email, params[:email])%></td>
+            </tr>
+        <tr>
+            <td><%=label_tag(:password)%></td>
+            <td><%=password_field_tag(:password, params[:password])%>
+        </tr>
+        <tr><td><%=submit_tag("Log in")%></td></tr>
+    </table>
+    <%end%>
+
+    <%= link_to "Forgot Your Password?","#" %>
+</div>
