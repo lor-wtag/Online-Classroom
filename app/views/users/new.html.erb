@@ -1,0 +1,36 @@
+<h1>Sign Up</h1>
+<div class="users new">
+  <%= form_for(@user, method: "post") do |f| %>
+    <table summary="User form field">
+      <tr>
+        <th>Name</th>
+        <td><%= f.text_field(:name) %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= f.text_field(:email) %></td>
+      </tr>
+      
+       <% if current_user && current_user.admin? %>
+        <tr>
+          <th>Role</th>
+          <td><%= f.select :role, User.roles.keys %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <th>Role</th>
+          <td><%= f.select :role, User.roles.slice("teacher", "student").keys %></td>
+        </tr>
+      <% end %>
+
+      <tr>
+        <th>Password</th>
+        <td><%= f.password_field(:password) %></td>
+      </tr>
+    </table> 
+
+    <div class="form buttons">
+      <%= f.submit("Create A User") %>
+    </div>
+  <% end %>
+</div>
