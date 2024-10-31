@@ -1,0 +1,34 @@
+<h1>Login</h1>
+<div class="login">
+    <%= form_with(model: current_user, url: password_path) do |f| %>
+        <% if f.object.errors.any? %>
+            <div class="error-messages">
+                <h3>There are errors:</h3>
+                <ul>
+                <% f.object.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+                </ul>
+            </div>
+        <% end %>
+        <table summary="User form field">
+        <tr>
+            <th>Current Password</th>
+            <td><%= f.password_field :password_challenge%></td>
+        </tr>
+        <tr>
+            <th>New Password</th>
+            <td><%= f.password_field :password %></td>
+        </tr>
+        <tr>
+            <th>Confirm New Password</th>
+            <td><%= f.password_field :password_confirmation %></td>
+        </tr>
+        </table>
+
+        <div class="form buttons">
+        <%= f.submit "Update your Password" %>
+        </div>
+    <% end %>
+
+</div>
