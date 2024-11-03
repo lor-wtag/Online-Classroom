@@ -14,7 +14,6 @@ class PasswordResetsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-    logger.debug "-----------------------------------------------------------------------------------------------------------ID: #{params[:id]}, Token: #{params[:token]}"
   end
 
   def edit
