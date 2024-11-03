@@ -1,7 +1,6 @@
 class PasswordResetsController < ApplicationController
-
   before_action :user_not_logged_in?
-  before_action :set_user_by_token, only: [:edit, :update]
+  before_action :set_user_by_token, only: [ :edit, :update ]
   def new
   end
 
@@ -16,8 +15,6 @@ class PasswordResetsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
     logger.debug "-----------------------------------------------------------------------------------------------------------ID: #{params[:id]}, Token: #{params[:token]}"
-
-    
   end
 
   def edit
@@ -34,7 +31,7 @@ class PasswordResetsController < ApplicationController
   private
   def set_user_by_token
     @user=User.find_by_token_for(:password_reset, params[:token])
-    redirect_to new_password_reset_path alert:" Invalid token. Please try again" unless @user.present?
+    redirect_to new_password_reset_path alert: " Invalid token. Please try again" unless @user.present?
   end
 
   def password_params
