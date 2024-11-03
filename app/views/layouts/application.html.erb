@@ -21,7 +21,7 @@
     <div><%=notice%></div>
     <div><%=alert%></div>
     <% if user_logged_in?%>
-      <%= link_to "Profile", edit_password_path(current_user.id)%>
+      <%= link_to "Edit your Password", edit_password_path(current_user.id)%>
       <%= button_to "Log out", session_path(current_user.id), method: :delete%>
     <%else%>
       <%= link_to "Sign Up?", new_user_path%>
