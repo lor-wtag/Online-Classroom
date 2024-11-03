@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     redirect_to root_path, alert: "You are not logged in!" unless user_logged_in?
   end
+  
   def current_user
     Current.user ||= authenticate_from_session
   end
@@ -20,6 +21,11 @@ class ApplicationController < ActionController::Base
     current_user.present?
   end
   helper_method :user_logged_in?
+
+  def user_not_logged_in?
+    !user_logged_in?
+  end
+  helper_method :user_not_logged_in?
 
   def login(user)
     Current.user=user

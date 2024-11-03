@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :enrollments, dependent: :destroy
   has_many :classrooms_as_student, through: :enrollments, source: :classroom
 
-  generates_token_for :password_reset, expired_in: 15.minutes do
+  generates_token_for :password_reset, expires_in: 15.minutes do
     password_salt&.last(10)
   end
 
