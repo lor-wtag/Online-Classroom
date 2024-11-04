@@ -6,7 +6,7 @@ class ClassroomsController < ApplicationController
     elsif current_user.student?
       puts "ami student-------------------------------------------------------------------"
                   current_user.classrooms_as_student
-                 end
+    end
   end
 
   def new
@@ -39,7 +39,7 @@ class ClassroomsController < ApplicationController
     if @classroom && current_user.enrollments.create(classroom_id: @classroom.id)
       redirect_to classroom_path(@classroom), notice: "You have enrolled in #{@classroom.name} successfully"
       puts "-----------------------------------------------Enrolled hoise---------------------------------"
-    else 
+    else
       puts "-----------------------------------------------ki jani error---------------------------------"
       render :enroll, alert: "Please try again!"
     end
