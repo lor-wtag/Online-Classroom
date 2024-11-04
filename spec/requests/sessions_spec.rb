@@ -6,8 +6,8 @@ RSpec.describe SessionsController, type: :request do
   describe "GET /sessions/new" do
     it "renders the new session form" do
       get new_session_path
-      expect(response).to have_http_status(:ok) 
-      expect(response.body).to include("Login") 
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("Login")
     end
   end
 

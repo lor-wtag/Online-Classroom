@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe "Edit Passwords", type: :request do
-  let!(:user) { create(:user) } 
+  let!(:user) { create(:user) }
 
   before do
     login(user)
@@ -20,13 +20,11 @@ RSpec.describe "Edit Passwords", type: :request do
           }
         }
         expect(response).to redirect_to(root_path)
-      follow_redirect!
-        puts "#{response.body}"
+        follow_redirect!
         expect(response.body).to include("Your password has been updated successfully.")
 
         user.reload
         expect(user.authenticate("newpassword")).to be_truthy
-
       end
     end
 
