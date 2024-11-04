@@ -1,0 +1,12 @@
+<h1>Enroll in a Classroom</h1>
+
+<%= form_with url: enroll_classrooms_path, method: :post do |form| %>
+  <div>
+    <%= label_tag :classroom_code, 'Classroom Code' %>
+    <%= text_field_tag :classroom_code %>
+  </div>
+  
+  <div>
+    <%= submit_tag 'Enroll' %>
+  </div>
+<% end %>

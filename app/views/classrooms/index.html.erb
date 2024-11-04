@@ -1,0 +1,28 @@
+<div class="classroom index">
+    <h2>Your Classrooms</h2>
+    
+    <%if current_user.teacher?%>
+        <%= link_to 'Create a new classroom', new_classroom_path, class: 'btn btn-secondary' %>
+    <%end%>
+
+    <table class="listing" summary="Classroom List">
+        <tr class="header">
+            <th>#</th>
+            <th>Name</th>
+            <th>Course Code</th>
+            <th>Actions</th>
+        </tr>
+        <%@classrooms.each do |classroom| %>
+        <tr>
+            <td><%= classroom.id%></td>
+            <td><%= classroom.name%></td>
+            <td><%= classroom.course_code%></td>
+            <td class="actions">
+                 <%=link_to("Show", classroom_path(classroom),:class => "action edit")%>
+                <%=link_to("Edit", "#",:class => "action edit")%>
+                <%# <%=link_to("Delete",delete_user_path(user),:class => "action delete")%>
+            </td>
+        </tr>
+        <%end%>
+    </table>
+</div>
