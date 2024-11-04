@@ -30,7 +30,7 @@
       <% else %>
         <tr>
           <th>Role</th>
-          <td><%= f.select :role, User.roles.slice("teacher", "student").keys %></td>
+          <td><%= f.select :role, User.roles.slice("teacher", "student").keys%></td>
         </tr>
       <% end %>
 
