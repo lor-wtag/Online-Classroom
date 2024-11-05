@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, length: { in: 10..50 }, format: { with: EMAIL_REGEX }, uniqueness: true
   validates :role, presence: true, inclusion: { in: roles.keys }
-  validates :password, confirmation: true, if: -> { password.present? }
+  validates :password, confirmation: true, length: { minimum: 8 }
   normalizes :email, with: ->(email) { email.strip.downcase }
 
   has_many :classrooms, foreign_key: :user_id, dependent: :destroy
@@ -17,9 +17,5 @@ class User < ApplicationRecord
 
   generates_token_for :password_reset, expires_in: 15.minutes do
     password_salt&.last(10)
-  end
-
-  generates_token_for :email_confirmation, expires_in: 24.hours do
-    email
   end
 end
