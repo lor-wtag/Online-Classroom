@@ -15,9 +15,16 @@
     <table>
         <th>Student Name</th>
         <th>Student Email</th>
+        <th>Actions</th>
+        <th>Remove Student</th>
         <% @classroom.users.each do |student| %>
-            <tr><td><%=student.name%></td>
-            <td><%=student.email%></td>
+            <tr>
+                <td><%=student.name%></td>
+                <td><%=student.email%></td>
+                 <td><%=@classroom.id%></td>
+                <td><%= link_to "View Student", "#"%></td>
+                <td><%= link_to 'Remove Student', delete_classroom_enrollment_path(classroom_id: @classroom.id,user_id: student.id) %></td>
+            </tr>
         <%end%>
     </table>
     <%= form_with url: send_invitations_classroom_path(@classroom), method: :post do %>

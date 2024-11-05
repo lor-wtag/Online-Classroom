@@ -6,6 +6,8 @@ class ClassroomsController < ApplicationController
       current_user.classrooms
     elsif current_user.student?
       current_user.classrooms_as_student
+    else
+      Classroom.all
     end
   end
 
@@ -28,6 +30,16 @@ class ClassroomsController < ApplicationController
   end
 
   def edit
+    @classroom= Classroom.find(params[:id])
+  end
+
+  def update
+    @classroom = Classroom.find(params[:id])
+    if @classroom.update(classroom_params)
+      redirect_to @classroom, notice: "You have successfully updated the classroom"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def delete

@@ -20,7 +20,7 @@
             <td class="actions">
                  <%=link_to("Show", classroom_path(classroom),:class => "action edit")%>
                  <%if !current_user.student?%>
-                    <%=link_to("Edit", "#",:class => "action edit")%>
+                    <%=link_to("Edit", edit_classroom_path(classroom),:class => "action edit")%>
                     <%=link_to("Delete","#")%>
                 <%end%>
 

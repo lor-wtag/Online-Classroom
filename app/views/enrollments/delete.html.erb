@@ -1,0 +1,15 @@
+<%= link_to("Go Back", classrooms_path, class: "back-link") %>
+<div class="remove student">
+    <h1>Delete Subject</h1>
+    <%= form_with url: classroom_enrollment_path(classroom_id: @classroom, user_id: @user), method: :delete do |f| %>
+    <%= puts "Enrollment+#{@enrollment.id}"%>
+     <%= puts "User+#{@user.id}"%>
+     <%= puts "Classroom+#{@classroom.id}"%>
+        <p>Are you sure you want to remove the student with the following details?</p>
+        <p><strong>Name:</strong> <%= @user.name %></p>
+        <p><strong>Email:</strong> <%= @user.email %></p>
+        <div class="form buttons">
+            <%= f.submit("Remove Student from this classroom") %>
+        </div>
+    <% end %>
+</div>

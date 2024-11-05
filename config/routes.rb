@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   resource :session
   resource :password
   resources :classrooms do
+    resources :enrollments do
+      member do
+        get :delete
+        delete :destroy
+      end
+    end
     collection do
       get :enroll
       post :enroll
@@ -14,6 +20,7 @@ Rails.application.routes.draw do
       post :send_invitations
       get :join
     end
+
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
