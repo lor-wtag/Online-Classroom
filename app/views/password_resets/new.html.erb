@@ -1,4 +1,4 @@
-<h1>Login</h1>
+<h3>Provide your Email</h3>
 <div class="password-reset">
     <%= form_with model: @user, url: password_reset_path do |f| %>
 
@@ -9,7 +9,7 @@
         </tr>
         </table>
         <div class="form buttons">
-        <%= f.submit "Send for Resetting Password?" %>
+        <%= f.submit "Send Email for Resetting Password?" %>
         </div>
     <% end %>
 </div>
