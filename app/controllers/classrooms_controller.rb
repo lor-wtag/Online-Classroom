@@ -2,11 +2,10 @@ class ClassroomsController < ApplicationController
   before_action :authenticate_user!
   def index
     @classrooms= if current_user.teacher?
-                    current_user.classrooms
-    elsif current_user.student?
-      puts "ami student-------------------------------------------------------------------"
+                  current_user.classrooms
+                elsif current_user.student?
                   current_user.classrooms_as_student
-    end
+                end
   end
 
   def new
@@ -35,12 +34,9 @@ class ClassroomsController < ApplicationController
 
   def enroll
     @classroom= Classroom.find_by(classroom_code: params[:classroom_code])
-    puts "--------------------Classroom ache: #{@classroom}"
     if @classroom && current_user.enrollments.create(classroom_id: @classroom.id)
       redirect_to classroom_path(@classroom), notice: "You have enrolled in #{@classroom.name} successfully"
-      puts "-----------------------------------------------Enrolled hoise---------------------------------"
     else
-      puts "-----------------------------------------------ki jani error---------------------------------"
       render :enroll, alert: "Please try again!"
     end
   end
@@ -51,7 +47,33 @@ class ClassroomsController < ApplicationController
       random_code = SecureRandom.hex(4)
       break random_code unless Classroom.exists?(classroom_code: random_code)
     end
-    puts "--------------------Code generated hoise"
+  end
+
+  def send_invitations
+    @classroom= Classroom.find(params[:id])
+    student_emails = params[:student_emails].split(',').map(&:strip)
+
+    if student_emails
+      student_emails.each do |student_email|
+        InvitationMailer.invitation_mail(current_user, @classroom, student_email).deliver_now
+      end
+      redirect_to @classroom, notice: "Classroom invitations have been sent to the students!"
+    else
+      render :show, alert: "Invalid emails. Please try again!"
+    end
+  end
+
+  def join
+    @classroom=Classroom.find(params[:id])
+    if current_user.student?
+      if @classroom && !current_user.enrolled_in?(@classroom)
+        current_user.classrooms_as_student<< @classroom
+        redirect_to @classroom, notice: "You have joined #{@classroom.name} classroom"
+      else
+        redirect_to root_path, alert: "Invalid/Duplicate Join attempt! Contact your course instructor!"
+      end
+    end
+
   end
 
   private

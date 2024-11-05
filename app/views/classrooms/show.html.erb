@@ -19,6 +19,13 @@
             <tr><td><%=student.name%></td>
             <td><%=student.email%></td>
         <%end%>
+    </table>
+    <%= form_with url: send_invitations_classroom_path(@classroom), method: :post do %>
+        <label>Enter student emails (comma-separated):</label>
+        <%= text_area_tag :student_emails, '', placeholder: 'student1@example.com, student2@example.com' %>
+        <%= submit_tag 'Send Invitations' %>
+    <% end %>
+
 <%end%>
 
 

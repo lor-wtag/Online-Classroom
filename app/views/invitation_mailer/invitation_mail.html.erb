@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Dear student,</h1>
+    <p>You have been invited by <%= @teacher.name %> to join the classroom "<%= @classroom.name %>."</p>
+    <p>To join the class, click the link below:</p>
+    <p><%= link_to 'Join Classroom', @join_link %></p>
+    <p>If the link doesn't work, log in to the classroom app and use this code to join: <%= @classroom.classroom_code %></p>
+    <p>Happy Learning!</p>
+  </body>
+</html>
