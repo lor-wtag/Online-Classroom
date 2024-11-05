@@ -3,9 +3,9 @@ class ClassroomsController < ApplicationController
   def index
     @classrooms= if current_user.teacher?
                   current_user.classrooms
-                elsif current_user.student?
+    elsif current_user.student?
                   current_user.classrooms_as_student
-                end
+    end
   end
 
   def new
@@ -51,7 +51,7 @@ class ClassroomsController < ApplicationController
 
   def send_invitations
     @classroom= Classroom.find(params[:id])
-    student_emails = params[:student_emails].split(',').map(&:strip)
+    student_emails = params[:student_emails].split(",").map(&:strip)
 
     if student_emails
       student_emails.each do |student_email|
@@ -73,7 +73,6 @@ class ClassroomsController < ApplicationController
         redirect_to root_path, alert: "Invalid/Duplicate Join attempt! Contact your course instructor!"
       end
     end
-
   end
 
   private
