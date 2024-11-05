@@ -1,10 +1,11 @@
 class ClassroomsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @classrooms= if current_user.teacher?
-                  current_user.classrooms
+    @classrooms=
+    if current_user.teacher?
+      current_user.classrooms
     elsif current_user.student?
-                  current_user.classrooms_as_student
+      current_user.classrooms_as_student
     end
   end
 

@@ -19,8 +19,11 @@
             <td><%= classroom.course_code%></td>
             <td class="actions">
                  <%=link_to("Show", classroom_path(classroom),:class => "action edit")%>
-                <%=link_to("Edit", "#",:class => "action edit")%>
-                <%# <%=link_to("Delete",delete_user_path(user),:class => "action delete")%>
+                 <%if !current_user.student?%>
+                    <%=link_to("Edit", "#",:class => "action edit")%>
+                    <%=link_to("Delete","#")%>
+                <%end%>
+
             </td>
         </tr>
         <%end%>
