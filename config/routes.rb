@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       post :enroll
     end
     member do
+      get :delete
       post :enroll
       post :send_invitations
       get :join

@@ -1,4 +1,6 @@
-<h1><%= @classroom.name %></h1>
+
+<div class="show-classroom">
+    <h1><%= @classroom.name %></h1>
 <p><strong>Course Code:</strong> <%= @classroom.course_code %></p>
 <%if current_user.teacher?%>
     <p><strong>Classroom Code:</strong> <%= @classroom.classroom_code %></p>
@@ -33,6 +35,9 @@
         <%= submit_tag 'Send Invitations' %>
     <% end %>
 
+    <%= link_to 'Delete thsi classroom', delete_classroom_path(@classroom), class: 'btn btn-secondary' %>
+
 <%end%>
+</div>
 
-
+ 

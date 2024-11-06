@@ -43,6 +43,13 @@ class ClassroomsController < ApplicationController
   end
 
   def delete
+    @classroom = Classroom.find(params[:id])
+  end
+
+  def destroy
+    @classroom=Classroom.find(params[:id])
+    @classroom.destroy
+    redirect_to classrooms_path, notice: "You have deleted this classroom"
   end
 
   def enroll
