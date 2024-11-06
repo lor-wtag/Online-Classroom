@@ -2,12 +2,11 @@ Rails.application.routes.draw do
   root "home#landing_page"
   resource :password_reset
   resources :users
-  resource :session
+  resource :session, only: [:new, :create, :destroy]
   resource :password
   resources :classrooms do
     resources :enrollments do
       member do
-        get :delete
         delete :destroy
       end
     end

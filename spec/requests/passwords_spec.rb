@@ -1,5 +1,3 @@
-# spec/requests/passwords_spec.rb
-
 require 'rails_helper'
 
 RSpec.describe "Edit Passwords", type: :request do

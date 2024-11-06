@@ -1,43 +1,42 @@
-
 <div class="show-classroom">
     <h1><%= @classroom.name %></h1>
-<p><strong>Course Code:</strong> <%= @classroom.course_code %></p>
-<%if current_user.teacher?%>
-    <p><strong>Classroom Code:</strong> <%= @classroom.classroom_code %></p>
-<%end%>
-<p><strong>Created By:</strong> <%= @classroom.teacher.name%></p>
-
-<%= link_to 'Edit Classroom', edit_classroom_path(@classroom), class: 'btn btn-primary' %>
-<%= link_to 'Back to Classrooms', classrooms_path, class: 'btn btn-secondary' %>
+    <p><strong>Course Code:</strong> <%= @classroom.course_code %></p>
+    <%if current_user.teacher?%>
+        <p><strong>Classroom Code:</strong> <%= @classroom.classroom_code %></p>
+    <%end%>
+    <p><strong>Created By:</strong> <%= @classroom.teacher.name%></p>
 
 
-<%if current_user.teacher?%>
-    <h2>Classroom Details</h2>
-    <p>The following students are enrolled in the classroom</p>
-    <table>
-        <th>Student Name</th>
-        <th>Student Email</th>
-        <th>Actions</th>
-        <th>Remove Student</th>
-        <% @classroom.users.each do |student| %>
-            <tr>
-                <td><%=student.name%></td>
-                <td><%=student.email%></td>
-                 <td><%=@classroom.id%></td>
-                <td><%= link_to "View Student", "#"%></td>
-                <td><%= link_to 'Remove Student', delete_classroom_enrollment_path(classroom_id: @classroom.id,user_id: student.id) %></td>
-            </tr>
-        <%end%>
-    </table>
-    <%= form_with url: send_invitations_classroom_path(@classroom), method: :post do %>
-        <label>Enter student emails (comma-separated):</label>
-        <%= text_area_tag :student_emails, '', placeholder: 'student1@example.com, student2@example.com' %>
-        <%= submit_tag 'Send Invitations' %>
-    <% end %>
+    <%= link_to 'Back to Classrooms', classrooms_path, class: 'btn btn-secondary' %>
 
-    <%= link_to 'Delete thsi classroom', delete_classroom_path(@classroom), class: 'btn btn-secondary' %>
 
-<%end%>
+    <%if current_user.teacher?%>
+        <h2>Classroom Details</h2>
+        <p>The following students are enrolled in the classroom</p>
+        <table>
+            <th>Student Name</th>
+            <th>Student Email</th>
+            <th>Actions</th>
+            <th>Remove Student</th>
+            <% @classroom.users.each do |student| %>
+                <tr>
+                    <td><%=student.name%></td>
+                    <td><%=student.email%></td>
+                    <td><%=@classroom.id%></td>
+                    <td><%= link_to "View Student", "#"%></td>
+                    <td><%= link_to 'Remove Student', delete_classroom_enrollment_path(classroom_id: @classroom.id,user_id: student.id) %></td>
+                </tr>
+            <%end%>
+        </table>
+        <%= form_with url: send_invitations_classroom_path(@classroom), method: :post do %>
+            <label>Enter student emails (comma-separated):</label>
+            <%= text_area_tag :student_emails, '', placeholder: 'student1@example.com, student2@example.com' %>
+            <%= submit_tag 'Send Invitations' %>
+        <% end %>
+        <%= link_to 'Edit Classroom', edit_classroom_path(@classroom), class: 'btn btn-primary' %>
+        <%= link_to 'Delete thsi classroom', delete_classroom_path(@classroom), class: 'btn btn-secondary' %>
+
+    <%end%>
 </div>
 
  

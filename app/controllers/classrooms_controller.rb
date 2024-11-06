@@ -1,13 +1,14 @@
 class ClassroomsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @classrooms=
     if current_user.teacher?
-      current_user.classrooms
+      @classrooms = current_user.classrooms
     elsif current_user.student?
-      current_user.classrooms_as_student
+      @classrooms = current_user.classrooms_as_student
+    elsif current_user.admin?
+      @classrooms = Classroom.all
     else
-      Classroom.all
+      @classrooms = []
     end
   end
 
@@ -53,13 +54,16 @@ class ClassroomsController < ApplicationController
   end
 
   def enroll
-    @classroom= Classroom.find_by(classroom_code: params[:classroom_code])
-    if @classroom && current_user.enrollments.create(classroom_id: @classroom.id)
-      redirect_to classroom_path(@classroom), notice: "You have enrolled in #{@classroom.name} successfully"
+    @classroom = Classroom.find_by(classroom_code: params[:classroom_code])
+    if @classroom && !current_user.enrolled_in?(@classroom)
+      if current_user.enrollments.create(classroom_id: @classroom.id)
+        redirect_to classroom_path(@classroom), notice: "You have enrolled in #{@classroom.name} successfully"
+      end
     else
-      render :enroll, alert: "Please try again!"
+      redirect_to root_path, alert: "Invalid/Duplicate enroll attempt. Please try again!"
     end
   end
+
 
 
   def generate_code_for_classroom
@@ -72,14 +76,14 @@ class ClassroomsController < ApplicationController
   def send_invitations
     @classroom= Classroom.find(params[:id])
     student_emails = params[:student_emails].split(",").map(&:strip)
-
-    if student_emails
+    if !student_emails.empty?
       student_emails.each do |student_email|
         InvitationMailer.invitation_mail(current_user, @classroom, student_email).deliver_now
       end
       redirect_to @classroom, notice: "Classroom invitations have been sent to the students!"
     else
-      render :show, alert: "Invalid emails. Please try again!"
+      flash[:alert] = "No valid student emails provided."
+      render :show, status: :unprocessable_entity
     end
   end
 
@@ -96,6 +100,7 @@ class ClassroomsController < ApplicationController
   end
 
   private
+
   def classroom_params
     params.require(:classroom).permit(:name, :course_code)
   end

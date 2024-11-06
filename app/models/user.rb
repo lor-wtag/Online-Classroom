@@ -20,6 +20,6 @@ class User < ApplicationRecord
   end
 
   def enrolled_in?(classroom)
-      classrooms_as_student.exists?(classroom.id)
+    classrooms_as_student.exists?(classroom.id)
   end
 end
