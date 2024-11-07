@@ -74,6 +74,9 @@ RSpec.configure do |config|
 
   RSpec.configure do |config|
     config.include FactoryBot::Syntax::Methods
-    config.include LoginHelpers, type: :controller
   end
+
+RSpec.configure do |config|
+  config.include LoginHelpers, type: :controller
+end
 end
