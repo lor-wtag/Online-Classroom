@@ -77,6 +77,6 @@ RSpec.configure do |config|
   end
 
 RSpec.configure do |config|
-  config.include LoginHelpers, type: :request
+  config.include LoginHelpers, type: :controller
 end
 end
