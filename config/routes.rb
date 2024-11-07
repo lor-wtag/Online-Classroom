@@ -2,21 +2,20 @@ Rails.application.routes.draw do
   root "home#landing_page"
   resource :password_reset
   resources :users
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [ :new, :create, :destroy ]
   resource :password
   resources :classrooms do
     resources :enrollments do
       member do
-        delete :destroy
+        get :delete
       end
     end
     collection do
       get :enroll
-      post :enroll
+      post :enroll, to: "classrooms#create_enrollment"
     end
     member do
       get :delete
-      post :enroll
       post :send_invitations
       get :join
     end

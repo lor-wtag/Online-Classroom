@@ -28,24 +28,32 @@ RSpec.describe ClassroomsController, type: :controller do
     end
   end
 
-  describe "POST #enroll" do
+  describe "POST #create_enrollment" do
     context "when user is a student" do
       before { login(student) }
-
-      it "enrolls the student in the classroom" do
-        post :enroll, params: { classroom_code: classroom_1.classroom_code }
+      it "enrolls the student in the classroom successfully" do
+        post :create_enrollment, params: { classroom_code: classroom_1.classroom_code }
         expect(student.classrooms_as_student).to include(classroom_1)
         expect(flash[:notice]).to include("You have enrolled in #{classroom_1.name} successfully")
       end
 
-      it "does not allow the student to join again" do
+      it "does not allow the student to enroll again in the same classroom" do
         student.classrooms_as_student << classroom_1
-        post :enroll, params: { classroom_code: classroom_1.classroom_code }
+        post :create_enrollment, params: { classroom_code: classroom_1.classroom_code }
         expect(student.classrooms_as_student.count).to eq(1)
-        expect(flash[:alert]).to eq("Invalid/Duplicate enroll attempt. Please try again!")
+        expect(flash[:alert]).to eq("You are already enrolled in this classroom!")
+      end
+
+      it "does not enroll the student if the classroom code is invalid" do
+        invalid_classroom_code = "INVALIDCODE"
+        post :create_enrollment, params: { classroom_code: invalid_classroom_code }
+
+        expect(student.classrooms_as_student.count).to eq(0)
+        expect(flash[:alert]).to eq("Invalid classroom code. Please try again!")
       end
     end
-  end
+end
+
 
   describe "POST #send_invitations" do
     context "when valid student emails are provided" do

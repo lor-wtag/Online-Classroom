@@ -54,13 +54,22 @@ class ClassroomsController < ApplicationController
   end
 
   def enroll
+  end
+
+  def create_enrollment
     @classroom = Classroom.find_by(classroom_code: params[:classroom_code])
-    if @classroom && !current_user.enrolled_in?(@classroom)
-      if current_user.enrollments.create(classroom_id: @classroom.id)
-        redirect_to classroom_path(@classroom), notice: "You have enrolled in #{@classroom.name} successfully"
-      end
+    if @classroom.nil?
+      redirect_to root_path, alert: "Invalid classroom code. Please try again!"
     else
-      redirect_to root_path, alert: "Invalid/Duplicate enroll attempt. Please try again!"
+      if current_user.enrolled_in?(@classroom)
+        redirect_to root_path, alert: "You are already enrolled in this classroom!"
+      else
+        if current_user.enrollments.create(classroom_id: @classroom.id)
+          redirect_to classroom_path(@classroom), notice: "You have enrolled in #{@classroom.name} successfully"
+        else
+        redirect_to root_path, alert: "Invalid/Duplicate enroll attempt. Please try again!"
+        end
+      end
     end
   end
 
@@ -88,14 +97,12 @@ class ClassroomsController < ApplicationController
   end
 
   def join
-    @classroom=Classroom.find(params[:id])
-    if current_user.student?
-      if @classroom && !current_user.enrolled_in?(@classroom)
-        current_user.classrooms_as_student<< @classroom
-        redirect_to @classroom, notice: "You have joined #{@classroom.name} classroom"
-      else
-        redirect_to root_path, alert: "Invalid/Duplicate Join attempt! Contact your course instructor!"
-      end
+    @classroom = Classroom.find(params[:id])
+    if current_user.student? && @classroom && !current_user.enrolled_in?(@classroom)
+      current_user.classrooms_as_student << @classroom
+      redirect_to @classroom, notice: "You have joined #{@classroom.name} classroom"
+    else
+      redirect_to root_path, alert: "Invalid/Duplicate join attempt! Contact your course instructor!"
     end
   end
 

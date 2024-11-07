@@ -18,13 +18,12 @@
             <th>Student Email</th>
             <th>Actions</th>
             <th>Remove Student</th>
-            <% @classroom.users.each do |student| %>
+            <% @classroom.enrollments.each do |enrollment| %>
                 <tr>
-                    <td><%=student.name%></td>
-                    <td><%=student.email%></td>
-                    <td><%=@classroom.id%></td>
+                    <td><%=enrollment.user.name%></td>
+                    <td><%=enrollment.user.email%></td>
                     <td><%= link_to "View Student", "#"%></td>
-                    <td><%= link_to 'Remove Student', delete_classroom_enrollment_path(classroom_id: @classroom.id,user_id: student.id) %></td>
+                    <td><%= link_to 'Remove Student', delete_classroom_enrollment_path(classroom_id:@classroom.id, id: enrollment.id) %></td>
                 </tr>
             <%end%>
         </table>

@@ -1,13 +1,12 @@
 class EnrollmentsController < ApplicationController
   def delete
     @classroom = Classroom.find(params[:classroom_id])
-    @user = User.find(params[:user_id])
-    @enrollment = Enrollment.find_by(classroom_id: @classroom.id, user_id: @user.id)
+    @enrollment = Enrollment.find_by(classroom_id: @classroom.id,  id: params[:id])
   end
 
   def destroy
     @classroom = Classroom.find(params[:classroom_id])
-    @enrollment = Enrollment.find_by(classroom_id: @classroom.id, user_id: params[:user_id])
+    @enrollment = Enrollment.find_by(id: params[:id], classroom_id: @classroom.id)
 
     if @enrollment && !current_user.student?
       @enrollment.destroy

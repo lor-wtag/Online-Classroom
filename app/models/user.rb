@@ -20,6 +20,7 @@ class User < ApplicationRecord
   end
 
   def enrolled_in?(classroom)
+    return false if classroom.nil?
     classrooms_as_student.exists?(classroom.id)
   end
 end
