@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
-    it { is_expected.to validate_uniqueness_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
     it { is_expected.to allow_value("lamiya@gmail.com").for(:email) }
     it { is_expected.to_not allow_value("lamiya@").for(:email) }
     it { is_expected.to_not allow_value("lamiygmail.@com").for(:email) }
