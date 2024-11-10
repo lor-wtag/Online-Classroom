@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
   end
 
   def index
-    @assignment= current_user.classroom.assignments
+    @assignments= current_user.classroom.assignments
   end
 
   def create
