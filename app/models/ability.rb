@@ -14,9 +14,11 @@ class Ability
       can :destroy, Enrollment, classroom: { user_id: user.id }
     elsif user.student?
       can :read, Classroom, enrollments: { user_id: user.id }
+      can :create, Enrollment, user_id: user.id
+      can :create_enrollment, Classroom
       can :join, Classroom
       can :enroll, Classroom
-      can :destroy, Enrollment, user_id: user.id
+      can :destroy, Enrollment
     end
   end
 end

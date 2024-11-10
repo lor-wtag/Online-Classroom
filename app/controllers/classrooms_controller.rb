@@ -50,6 +50,7 @@ class ClassroomsController < ApplicationController
   end
 
   def create_enrollment
+    authorize! :create, Enrollment
     @classroom = Classroom.find_by(classroom_code: params[:classroom_code])
     if @classroom.nil?
       redirect_to root_path, alert: "Invalid classroom code. Please try again!"
@@ -90,6 +91,7 @@ class ClassroomsController < ApplicationController
   end
 
   def join
+    authorize! :create, Enrollment
     @classroom = Classroom.find(params[:id])
     if current_user.student? && @classroom && !current_user.enrolled_in?(@classroom)
       current_user.classrooms_as_student << @classroom

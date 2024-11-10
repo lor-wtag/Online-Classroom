@@ -28,6 +28,6 @@ module OnlineClassroom
     # Optionally, load translations from subdirectories
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
 
-    config.eager_load_paths += %W(#{config.root}/app/models/ability.rb)
+    config.eager_load_paths += %W[#{config.root}/app/models/ability.rb]
   end
 end
