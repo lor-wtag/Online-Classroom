@@ -15,10 +15,10 @@ class Ability
     elsif user.student?
       can :read, Classroom, enrollments: { user_id: user.id }
       can :create, Enrollment, user_id: user.id
-      can :create_enrollment, Classroom
+      can :create_enrollment, Classroom, user_id: user.id
       can :join, Classroom
       can :enroll, Classroom
-      can :destroy, Enrollment
+      can :destroy, Enrollment, user_id: user.id
     end
   end
 end
