@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+gem "i18n"
 gem "importmap-rails"
 gem "jbuilder"
 gem "pg", "~> 1.1"
@@ -25,10 +26,8 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara"
   gem "factory_bot_rails"
   gem "rails-controller-testing"
   gem "rspec-rails"
-  gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 6.0"
 end
