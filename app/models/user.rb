@@ -18,7 +18,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { in: 10..50 }, format: { with: EMAIL_REGEX }, uniqueness: true
   validates :role, presence: true, inclusion: { in: roles.keys }
   validates :password, presence: true, on: :create, length: { in: (8..20) }
-  
+
   def hashPassword
     if password.present?
       self.password_digest = Digest::SHA256.hexdigest(password)
