@@ -1,15 +1,8 @@
 class ClassroomsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
   def index
-    if current_user.teacher?
-      @classrooms = current_user.classrooms
-    elsif current_user.student?
-      @classrooms = current_user.classrooms_as_student
-    elsif current_user.admin?
-      @classrooms = Classroom.all
-    else
-      @classrooms = []
-    end
+    @classroom=current_user.classrooms
   end
 
   def new
