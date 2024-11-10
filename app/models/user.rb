@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\z/i
   enum :role, { admin: 0, teacher: 1, student: 2 }
- 
+
   has_many :classrooms, foreign_key: :user_id, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
