@@ -2,6 +2,14 @@
     <h2> Welcome to the Classroom</h2>
     <p>Please login or Sign up to access the classroom</p>
 <%else%>
-    <h2><%= "Welcome, #{current_user.name}"%>
+    <h2><%= "Welcome, #{current_user.name}"%></h2>
+    <h3><%=current_user.role%></h3>
+    <%if current_user.teacher?%>
+        <%=link_to "Create a new classroom", new_classroom_path%>
+        <%= link_to "See your classrooms", classrooms_path%>
+    <%elsif current_user.student?%>
+        <%=link_to "Enroll in a classroom", enroll_classrooms_path%>
+        <%= link_to "See your classrooms", classrooms_path%>
+    <%end %>
 <%end%>
 
