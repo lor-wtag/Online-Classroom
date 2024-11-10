@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Online Classroom - <%= @page_title || "" %></title>
+    <link rel="stylesheet" type="text/css" href="<%= asset_path('styles.css') %>">
+  </head>
+  <body>
+    <% if !flash[:notice].blank? %>
+      <div class="notice">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

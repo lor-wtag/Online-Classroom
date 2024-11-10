@@ -1,0 +1,8 @@
+<h1>Welcome, <%= current_user.name %>!</h1>
+
+<p>You are logged in as a <%= current_user.role.capitalize %>.</p>
+
+<p>
+  <%= link_to "View Profile", user_path(current_user) %> |
+  <%= link_to "Logout", sessions_logout_path, method: :delete %>
+</p>
