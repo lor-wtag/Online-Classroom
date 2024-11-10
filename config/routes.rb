@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post :send_invitations
       get :join
     end
+    resources :assignments
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

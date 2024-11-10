@@ -1,0 +1,32 @@
+<div class="show-assignment">
+  <h1><%= @assignment.title %></h1>
+  <p><strong>Description:</strong> <%= @assignment.description %></p>
+  <p><strong>Due Date:</strong> <%= @assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></p>
+  
+  <h2>Attached Files:</h2>
+  <% if @assignment.files.attached? %>
+    <ul>
+      <% @assignment.files.each do |file| %>
+            <% if file.content_type == "application/pdf" %>
+                <div class="file-viewer">
+                <h3><%= file.filename.to_s %></h3>
+                <embed src="<%= rails_blob_path(file, disposition: 'inline') %>" type="application/pdf" width="100%" height="600px" />
+                </div>
+            <% elsif file.content_type.start_with?('image') %>
+                <div class="image-viewer">
+                <h3><%= file.filename.to_s %></h3>
+                <img src="<%= rails_blob_path(file, disposition: 'inline') %>" alt="<%= file.filename.to_s %>" style="max-width: 100%; height: auto;" />
+                </div>
+            <% else %>
+                <div class="file-download">
+                <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment') %>
+                </div>
+            <% end %>
+        <% end %>
+    </ul>
+  <% else %>
+    <p>No files attached.</p>
+  <% end %>
+  
+  <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-secondary' %>
+</div>
