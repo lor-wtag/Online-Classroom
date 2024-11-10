@@ -31,3 +31,9 @@ en:
   hello: "Hello world"
   titles:
     default: "Online Classroom"
+  table_headers:
+    number: "#"
+    name: "Name"
+    email: "Email"
+    role: "Role"
+    actions: "Actions"

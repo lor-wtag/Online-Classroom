@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe Comment, type: :model do
+RSpec.describe Comment do
   describe "validations" do
-    it { should validate_presence_of(:content) }
-    it { should validate_length_of(:content).is_at_most(500) }
+    it { is_expected.to validate_presence_of(:content) }
+    it { is_expected.to validate_length_of(:content).is_at_most(500) }
   end
 
   describe "associations" do
-    it { should belong_to(:commentable) }
-    it { should belong_to(:user) }
+    it { is_expected.to belong_to(:commentable) }
+    it { is_expected.to belong_to(:user) }
   end
 end
