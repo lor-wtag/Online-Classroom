@@ -1,4 +1,16 @@
 <%= link_to("Go Back", classrooms_path, class: "back-link") %>
+<%if current_user.student?%>
+<div class="leave classroom">
+    <%= form_with url: classroom_enrollment_path(classroom_id: @classroom.id, id: @classroom.enrollments.find_by(user_id: current_user.id)), method: :delete do |f| %>
+        <p>Are you sure you want to leave this classroom?</p>
+        <p><strong>Classroom Name:</strong> <%= @classroom.name %></p>
+        <p><strong>Created By:</strong> <%= @classroom.teacher.name %></p>
+        <div class="form buttons">
+            <%= f.submit("Leave this classroom") %>
+        </div>
+    <% end %>
+</div>
+<%else%>
 <div class="remove student">
     <h1>Remove Student from <%=@classroom.name%></h1>
     <%= form_with url: classroom_enrollment_path(classroom_id: @classroom.id, id: @enrollment.id), method: :delete do |f| %>
@@ -10,3 +22,4 @@
         </div>
     <% end %>
 </div>
+<%end%>

@@ -11,10 +11,20 @@ RSpec.describe EnrollmentsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "removes the student from the classroom" do
-      expect {
-        delete :destroy, params: { classroom_id: classroom.id, id: enrollment.id }
-    }.to change(Enrollment, :count).by(-1)
+    context "logs in as a teacher"
+      before { login(teacher) }
+      it "removes the student from the classroom" do
+        expect {
+          delete :destroy, params: { classroom_id: classroom.id, id: enrollment.id }
+      }.to change(Enrollment, :count).by(-1)
+    end
+
+    context "logs in as a student"
+      before { login(student) }
+      it "leaves the classroom" do
+        expect {
+          delete :destroy, params: { classroom_id: classroom.id, id: enrollment.id }
+      }.to change(Enrollment, :count).by(-1)
     end
   end
 end
