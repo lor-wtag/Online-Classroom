@@ -36,6 +36,7 @@ RSpec.describe UsersController, type: :controller do
   describe "GET #index" do
     it "returns a list of all users" do
       user = create(:user)
+      login(user)
       get :index
       expect(response).to be_successful
     end
