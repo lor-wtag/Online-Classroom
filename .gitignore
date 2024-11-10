@@ -37,4 +37,4 @@
 /config/database.yml
 
 /.env
-
+/test

@@ -12,6 +12,10 @@ gem "stimulus-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
+group :development do
+  gem "web-console"
+end
+
 group :development, :test do
   gem "brakeman", require: false
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -19,9 +23,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
-group :development do
-  gem "web-console"
-end
-
 group :test do
+  gem "factory_bot_rails"
+  gem "rspec-rails"
+  gem "shoulda-matchers", "~> 6.0"
 end
