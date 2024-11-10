@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
-gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 gem "i18n"
 gem "importmap-rails"
 gem "jbuilder"
@@ -21,6 +20,7 @@ end
 
 group :development, :test do
   gem "brakeman", require: false
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "dotenv-rails"
   gem "rubocop-rails-omakase", require: false
 end
