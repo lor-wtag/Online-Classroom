@@ -5,14 +5,12 @@
     <%else%>
         <table class="listing" summary="User List">
             <tr class="header">
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
+                <th><%= t('table_headers.number') %></th>
+                <th><%= t('table_headers.name') %></th>
+                <th><%= t('table_headers.email') %></th>
+                <th><%= t('table_headers.role') %></th>
+                <th><%= t('table_headers.actions') %></th>
             </tr>
-            <%if @users.empty?%>
-        
             <%@users.each do |user| %>
             <tr>
                 <td><%= user.id%></td>
