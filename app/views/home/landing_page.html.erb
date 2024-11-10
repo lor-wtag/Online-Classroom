@@ -1,0 +1,7 @@
+<%if user_not_logged_in?%>
+    <h2> Welcome to the Classroom</h2>
+    <p>Please login or Sign up to access the classroom</p>
+<%else%>
+    <h2><%= "Welcome, #{current_user.name}"%>
+<%end%>
+

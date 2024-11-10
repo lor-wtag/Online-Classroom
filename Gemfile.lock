@@ -73,6 +73,7 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     ast (2.4.2)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     bigdecimal (3.1.8)
     bindex (0.8.1)
     bootsnap (1.18.4)
@@ -183,6 +184,10 @@ GEM
       activesupport (= 7.2.1.1)
       bundler (>= 1.15.0)
       railties (= 7.2.1.1)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -293,6 +298,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap
   brakeman
   debug
@@ -304,6 +310,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.2.1, >= 7.2.1.1)
+  rails-controller-testing
   rspec-rails
   rubocop-rails-omakase
   shoulda-matchers (~> 6.0)

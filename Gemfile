@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
 gem "i18n"
 gem "importmap-rails"
@@ -25,6 +26,7 @@ end
 
 group :test do
   gem "factory_bot_rails"
+  gem "rails-controller-testing"
   gem "rspec-rails"
   gem "shoulda-matchers", "~> 6.0"
 end
