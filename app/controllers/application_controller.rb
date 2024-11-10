@@ -2,9 +2,11 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
   helper_method :current_user
+
   private
+
   def confirm_logged_in
-    if session[:user_id]==nil
+    if session[:user_id].blank?
       flash[:notice]= "Please login :)"
       redirect_to sessions_login_path
     end

@@ -1,9 +1,10 @@
-<h1>Hi! Welcome to the classroom :D</h1>
+<h1><%= t("welcome_message") %></h1>
+
 <div class="links">
-<ul>
-    <li><%=link_to("Sign_up", new_user_path)%></li>
-    <li><%= link_to("Already a user here? Login", sessions_login_path)%></li>
-</ul>
-    </div>
+    <ul>
+        <li><%=link_to("Sign_up", new_user_path)%></li>
+        <li><%= link_to("Already a user here? Login", sessions_login_path)%></li>
+    </ul>
+</div>
 
 

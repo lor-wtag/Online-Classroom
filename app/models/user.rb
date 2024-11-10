@@ -26,12 +26,9 @@ class User < ApplicationRecord
   end
 
   def self.authenticate(user_email, password)
-    user=User.find_by(email: user_email)
-    if user
-      if user.password_digest==Digest::SHA256.hexdigest(password)
-        user
-      else nil
-      end
-    end
+    user = User.find_by(email: user_email)
+    return nil unless user
+    return user if user.password_digest == Digest::SHA256.hexdigest(password)
+    nil
   end
 end
