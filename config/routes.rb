@@ -1,25 +1,27 @@
 Rails.application.routes.draw do
   root "home#landing_page"
-  resource :password_reset
-  resources :users
-  resource :session, only: [ :new, :create, :destroy ]
-  resource :password
-  resources :classrooms do
-    resources :enrollments do
+  scope "(:locale)", locale: /en|ben/ do
+    resource :password_reset
+    resources :users
+    resource :session, only: [ :new, :create, :destroy ]
+    resource :password
+    resources :classrooms do
+      resources :enrollments do
+        member do
+          get :delete
+        end
+      end
+      collection do
+        get :enroll
+        post :enroll, to: "classrooms#create_enrollment"
+      end
       member do
         get :delete
+        post :send_invitations
+        get :join
       end
+      resources :assignments
     end
-    collection do
-      get :enroll
-      post :enroll, to: "classrooms#create_enrollment"
-    end
-    member do
-      get :delete
-      post :send_invitations
-      get :join
-    end
-    resources :assignments
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

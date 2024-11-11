@@ -29,6 +29,8 @@
       <%= link_to "Sign Up?", new_user_path%>
       <%=link_to "Login", new_session_path%>
     <%end%>
+    <%= link_to "English", url_for(locale: 'en') %> |
+      <%= link_to "Bangla", url_for(locale: 'ben') %>
     <%= yield %>
   </body>
 </html>

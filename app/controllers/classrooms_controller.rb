@@ -59,7 +59,7 @@ class ClassroomsController < ApplicationController
         redirect_to root_path, alert: "You are already enrolled in this classroom!"
       else
         if current_user.enrollments.create(classroom_id: @classroom.id)
-          redirect_to classroom_path(@classroom), notice: "You have enrolled in #{@classroom.name} successfully"
+          redirect_to classroom_path(@classroom, locale: I18n.locale), notice: "You have enrolled in #{@classroom.name} successfully"
         else
         redirect_to root_path, alert: "Invalid/Duplicate enroll attempt. Please try again!"
         end
