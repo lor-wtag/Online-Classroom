@@ -1,0 +1,26 @@
+<%= link_to("Go Back", classrooms_path, class: "back-link") %>
+<div class="delete-self-user">
+    <h1>Delete User</h1>
+<%= form_for @user, method: :delete do |f| %>
+     <p>Are you sure you want to delete this account?</p>
+     <table summary= "User form field">
+        <tr>
+            <th>Name</th>
+            <td><%= f.object.name%></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td><%= f.object.email%></td>
+        </tr>
+        <tr>
+            <th>Role</th>
+            <td><%= f.object.role%></td>
+        </tr>
+       
+     </table>
+
+     <div class= "form buttons">
+         <%= f.submit("Delete Account")%>
+     </div>
+ <%end%>
+</div>

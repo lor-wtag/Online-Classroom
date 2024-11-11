@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+  load_and_authorize_resource
   def new
     @user=User.new
   end
@@ -17,9 +19,37 @@ class UsersController < ApplicationController
     @users=User.all
   end
 
+  def show
+    @user= User.find(params[:id])
+  end
+
+  def edit
+    @user= User.find(params[:id])
+  end
+
+  def update
+    @user=User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user, notice: "Your profile has been updated!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def delete
+    @user= User.find(params[:id])
+  end
+
+  def destroy
+    @user= User.find(params[:id])
+    @user.destroy
+    redirect_to root_path, notice: "Account deleted!"
+  end
+
   private
   def user_params
     permitted = [ :name, :email, :password, :password_confirmation, :role ]
     params.require(:user).permit(permitted)
   end
+
 end

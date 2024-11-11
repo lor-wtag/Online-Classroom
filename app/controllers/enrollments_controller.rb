@@ -1,5 +1,6 @@
 class EnrollmentsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
   def delete
     @classroom = Classroom.find(params[:classroom_id])
     @enrollment = Enrollment.find_by(classroom_id: @classroom.id,  id: params[:id])

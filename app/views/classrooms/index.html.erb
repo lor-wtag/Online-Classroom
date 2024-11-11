@@ -15,6 +15,9 @@
                 <% if !current_user.student?%>
                     <th>Student Count</th>
                 <%end%>
+                <% if current_user.admin?%>
+                    <th>Created by</th>
+                <%end%>
                 <th>Actions</th>
             </tr>
             <%@classrooms.each do |classroom| %>
@@ -24,6 +27,9 @@
                 <td><%= classroom.course_code%></td>
                 <% if !current_user.student?%>
                     <td><%=classroom.users.count%></td>
+                <%end%>
+                <% if current_user.admin?%>
+                    <td><%=classroom.teacher.name%></td>
                 <%end%>
                 <td class="actions">
                     <%=link_to("Show", classroom_path(classroom),:class => "action edit")%>
