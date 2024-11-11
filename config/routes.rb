@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   root "home#landing_page"
   scope "(:locale)", locale: /en|ben/ do
     resource :password_reset
-    resources :users
+    resources :users do
+    member do
+      get :delete
+    end
+  end
     resource :session, only: [ :new, :create, :destroy ]
     resource :password
     resources :classrooms do

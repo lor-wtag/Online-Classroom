@@ -7,7 +7,7 @@ FactoryBot.define do
     role { :student }
   end
 
-  factory :teacher, class: 'User' do
+  factory :teacher, class: "User" do
     name { "Jane Doe Teacher" }
     email { "teacher1@gmail.com" }
     password { "123456789" }
@@ -15,11 +15,19 @@ FactoryBot.define do
     role { :teacher }
   end
 
-  factory :student, class: 'User' do
+  factory :student, class: "User" do
     name { "Jane Doe Student" }
     email { "student1@gmail.com" }
     password { "123456789" }
     password_confirmation { "123456789" }
     role { :student }
+  end
+
+  factory :admin, class: "User" do
+    name { "Jane Doe Admin" }
+    email { "admin1@gmail.com" }
+    password { "123456789" }
+    password_confirmation { "123456789" }
+    role { :admin }
   end
 end
