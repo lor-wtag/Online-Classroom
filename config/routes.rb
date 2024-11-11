@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   root "home#landing_page"
-  scope "(:locale)", locale: /en|ben/ do
+  scope "(:locale)", locale: /en|be/ do
     resource :password_reset
     resources :users do
-    member do
-      get :delete
+      member do
+        get :delete
+      end
     end
-  end
     resource :session, only: [ :new, :create, :destroy ]
     resource :password
     resources :classrooms do
@@ -24,7 +24,11 @@ Rails.application.routes.draw do
         post :send_invitations
         get :join
       end
-      resources :assignments
+      resources :assignments do
+        member do
+          get :delete
+        end
+      end
     end
   end
   mount Rails.application.routes => "/rails/active_storage"

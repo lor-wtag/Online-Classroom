@@ -16,7 +16,6 @@
 
   <% if current_user.teacher? %>
         <h2>Classroom Details</h2>
-        <%= link_to "Create a new Assignment for this Class", new_classroom_assignment_path(@classroom) %>
         <p>The following students are enrolled in the classroom:</p>
         
         <table>
@@ -42,6 +41,7 @@
 
         <%= link_to 'Edit Classroom', edit_classroom_path(@classroom), class: 'btn btn-primary' %>
         <%= link_to 'Delete this classroom', delete_classroom_path(@classroom), class: 'btn btn-secondary' %>
+         <%= link_to "Create a new Assignment for this Class", new_classroom_assignment_path( @classroom) %>
     <% end %>
 
     <h3>Assignments for this Classroom:</h3>

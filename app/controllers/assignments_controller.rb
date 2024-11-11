@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
   end
 
   def index
-    @assignments= current_user.classroom.assignments
+    @assignments= @classroom.assignments
   end
 
   def create
@@ -26,9 +26,49 @@ class AssignmentsController < ApplicationController
     @assignment= @classroom.assignments.find(params[:id])
   end
 
+  def edit
+    @assignment= @classroom.assignments.find(params[:id])
+  end
+
+  def update
+    @assignment= @classroom.assignments.find(params[:id])
+    if params[:assignment][:files].present?
+      @assignment.files.attach(params[:assignment][:files])
+    end
+
+    if params[:assignment][:remove_files].present?
+      files_to_remove = params[:assignment][:remove_files].map(&:to_i)
+      files_to_remove.each do |file_id|
+        file = @assignment.files.find { |f| f.id == file_id }
+        file.purge if file
+      end
+    end
+
+    if @assignment.update(assignment_params)
+      redirect_to classroom_assignment_path(@classroom, @assignment), notice: "Assignemnt updated successfully"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def delete
+    @assignment= @classroom.assignments.find(params[:id])
+  end
+
+  def destroy
+    @assignment= @classroom.assignments.find(params[:id])
+    if @assignment.destroy
+      redirect_to classroom_path(@classroom), notice: 'Assignment was successfully deleted.'
+    else
+      render :delete, status: :unprocessable_entity
+    end
+  end
+
+
+
   private
 
   def assignment_params
-    params.require(:assignment).permit(:title, :description, :due_date, :classroom_id, files: [])
+    params.require(:assignment).permit(:title, :description, :due_date, files: [])
   end
 end
