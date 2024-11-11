@@ -1,0 +1,10 @@
+<div class="show-user">
+    <h1><%= "#{@user.name}'s Profile" %></h1>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <p><strong>Role:</strong> <%= @user.role %></p>
+    <%= link_to 'Back to Classrooms', classrooms_path, class: 'btn btn-secondary' %>
+    <%= link_to 'Edit Your Information', edit_user_path(@user), class: 'btn btn-primary' %>
+    <%= link_to 'Delete this account', delete_user_path(@user), class: 'btn btn-secondary' %>
+</div>
+
+ 

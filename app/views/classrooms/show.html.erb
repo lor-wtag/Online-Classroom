@@ -5,8 +5,9 @@
         <p><strong>Classroom Code:</strong> <%= @classroom.classroom_code %></p>
     <%end%>
     <p><strong>Created By:</strong> <%= @classroom.teacher.name%></p>
-
-
+    <%if current_user.student?%>
+        <%= link_to "Leave this classroom", delete_classroom_enrollment_path(@classroom, @classroom.enrollments.find_by(user_id: current_user.id)) %>
+    <%end%>
     <%= link_to 'Back to Classrooms', classrooms_path, class: 'btn btn-secondary' %>
 
 

@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
+gem "cancancan"
 gem "i18n"
 gem "importmap-rails"
 gem "jbuilder"

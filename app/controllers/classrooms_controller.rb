@@ -1,15 +1,8 @@
 class ClassroomsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
   def index
-    if current_user.teacher?
-      @classrooms = current_user.classrooms
-    elsif current_user.student?
-      @classrooms = current_user.classrooms_as_student
-    elsif current_user.admin?
-      @classrooms = Classroom.all
-    else
-      @classrooms = []
-    end
+    @classroom=current_user.classrooms
   end
 
   def new
@@ -57,6 +50,7 @@ class ClassroomsController < ApplicationController
   end
 
   def create_enrollment
+    authorize! :create, Enrollment
     @classroom = Classroom.find_by(classroom_code: params[:classroom_code])
     if @classroom.nil?
       redirect_to root_path, alert: "Invalid classroom code. Please try again!"
@@ -97,6 +91,7 @@ class ClassroomsController < ApplicationController
   end
 
   def join
+    authorize! :create, Enrollment
     @classroom = Classroom.find(params[:id])
     if current_user.student? && @classroom && !current_user.enrolled_in?(@classroom)
       current_user.classrooms_as_student << @classroom

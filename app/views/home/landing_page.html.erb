@@ -10,6 +10,10 @@
     <%elsif current_user.student?%>
         <%=link_to "Enroll in a classroom", enroll_classrooms_path%>
         <%= link_to "See your classrooms", classrooms_path%>
+    <%elsif current_user.admin?%>
+        <%=link_to "Create a new user", new_user_path%>
+        <%= link_to "See all users", users_path%>
+         <%= link_to "See all classrooms", classrooms_path%>
     <%end %>
 <%end%>
 
