@@ -17,11 +17,15 @@
                 <h3><%= file.filename.to_s %></h3>
                 <img src="<%= rails_blob_path(file, disposition: 'inline') %>" alt="<%= file.filename.to_s %>" style="max-width: 100%; height: auto;" />
                 </div>
-            <% else %>
-                <div class="file-download">
-                <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment') %>
+           <% elsif file.content_type == "text/plain" %>
+                <div class="text-file-viewer">
+                <h3><%= file.filename.to_s %></h3>
+                <pre><%= file.download %></pre>
                 </div>
-            <% end %>
+            <% end %> 
+            <div class="file-download">
+              <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment') %>
+            </div>
         <% end %>
     </ul>
   <% else %>
