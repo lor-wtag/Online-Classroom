@@ -10,12 +10,12 @@ class Ability
       can :manage, :all
       can :create, User
     elsif user.teacher?
-      can [:edit, :update, :delete, :destroy], User, id:user.id
+      can [ :edit, :update, :delete, :destroy ], User, id: user.id
       can :manage, Classroom, user_id: user.id
       can :destroy, Enrollment, classroom: { user_id: user.id }
       can :manage, Assignment, classroom: { user_id: user.id }
     elsif user.student?
-      can [:read, :edit, :update, :delete, :destroy], User, id:user.id
+      can [ :read, :edit, :update, :delete, :destroy ], User, id: user.id
       can :read, Classroom, enrollments: { user_id: user.id }
       can :create, Enrollment, user_id: user.id
       can :create_enrollment, Classroom, user_id: user.id
