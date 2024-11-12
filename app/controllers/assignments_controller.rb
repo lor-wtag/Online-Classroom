@@ -1,5 +1,7 @@
 class AssignmentsController < ApplicationController
   before_action :set_classroom
+  before_action :authenticate_user!
+  load_and_authorize_resource through: :classroom
 
   def set_classroom
     @classroom=Classroom.find(params[:classroom_id])
@@ -45,7 +47,7 @@ class AssignmentsController < ApplicationController
     end
 
     if @assignment.update(assignment_params)
-      redirect_to classroom_assignment_path(@classroom, @assignment), notice: "Assignemnt updated successfully"
+      redirect_to classroom_assignment_path(@classroom, @assignment), notice: "Assignment updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end

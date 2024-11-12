@@ -1,0 +1,27 @@
+   <h3>Assignments for this Classroom:</h3>
+    <% if @classroom.assignments.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Assignment Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <% if current_user.teacher?%>
+                <th>Actions</th>
+            <%end%>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classroom.assignments.each do |assignment| %>
+            <tr>
+              <td><%= assignment.title %></td>
+              <td><%= assignment.description %></td>
+              <td><%= assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></td>
+              <td><%= link_to "View Assignment", classroom_assignment_path(@classroom, assignment) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No assignments yet.</p>
+    <% end %>

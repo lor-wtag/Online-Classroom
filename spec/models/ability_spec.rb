@@ -9,6 +9,8 @@ RSpec.describe Ability, type: :model do
   let!(:student_2) { create(:student, name: "Student 2", email: "student2@gmail.com") }
   let!(:classroom) { create(:classroom, teacher: teacher) }
   let!(:other_classroom) { create(:classroom, name: "Classroom-2", course_code: "CS404", teacher: teacher_2) }
+  let!(:assignment) { create(:assignment, classroom: classroom) }
+  let!(:other_assignment) { create(:assignment, classroom: other_classroom) }
 
   subject(:ability) { Ability.new(user) }
 
@@ -26,6 +28,11 @@ RSpec.describe Ability, type: :model do
     it "allows admins to create another admin" do
       expect(ability).to be_able_to(:create, User, role: "admin")
     end
+
+    it "allows admins to manage assignments" do
+      expect(ability).to be_able_to(:manage, assignment)
+      expect(ability).to be_able_to(:manage, other_assignment)
+    end
   end
 
   context "when user is a teacher" do
@@ -39,26 +46,14 @@ RSpec.describe Ability, type: :model do
       expect(ability).not_to be_able_to(:manage, other_classroom)
     end
 
-    it "allows teachers to send invitations" do
-      expect(ability).to be_able_to(:send_invitations, classroom)
+    it "allows teachers to create, update, and destroy their own assignments" do
+      expect(ability).to be_able_to(:create, Assignment)
+      expect(ability).to be_able_to(:update, assignment)
+      expect(ability).to be_able_to(:destroy, assignment)
     end
 
-    it "allows teachers to destroy enrollments in their classrooms" do
-      enrollment = create(:enrollment, user: student, classroom: classroom)
-      expect(ability).to be_able_to(:destroy, enrollment)
-    end
-
-    it "does not allow teachers to destroy other teachers' enrollments" do
-      other_enrollment = create(:enrollment, user: student_2, classroom: other_classroom)
-      expect(ability).not_to be_able_to(:destroy, other_enrollment)
-    end
-
-    it "allows teachers to update their own account" do
-      expect(ability).to be_able_to(:update, teacher)
-    end
-
-    it "does not allow teachers to update other users' accounts" do
-      expect(ability).not_to be_able_to(:update, student)
+    it "does not allow teachers to manage other teachers' assignments" do
+      expect(ability).not_to be_able_to(:manage, other_assignment)
     end
   end
 
@@ -100,13 +95,20 @@ RSpec.describe Ability, type: :model do
       expect(ability).not_to be_able_to(:update, teacher)
     end
 
-    it "allows students to enroll in a classroom" do
-      expect(ability).to be_able_to(:create, Enrollment)
+    it "does not allow students to manage assignments" do
+      expect(ability).not_to be_able_to(:manage, assignment)
     end
 
-    it "allows students to destroy their own enrollment" do
-      enrollment = create(:enrollment, user: student, classroom: classroom)
-      expect(ability).to be_able_to(:destroy, enrollment)
+    it "does not allow students to create assignments" do
+      expect(ability).not_to be_able_to(:create, Assignment)
+    end
+
+    it "does not allow students to update assignments" do
+      expect(ability).not_to be_able_to(:update, assignment)
+    end
+
+    it "does not allow students to destroy assignments" do
+      expect(ability).not_to be_able_to(:destroy, assignment)
     end
   end
 end

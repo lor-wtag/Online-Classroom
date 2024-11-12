@@ -52,6 +52,7 @@ RSpec.describe UsersController, type: :controller do
         login teacher
         get :index
         expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq("You are not authorized to access this page.") 
       end
     end
   end

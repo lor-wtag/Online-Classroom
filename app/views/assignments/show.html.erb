@@ -20,7 +20,9 @@
   <% else %>
     <p>No files attached.</p>
   <% end %>
-  <%= link_to 'Edit this assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
-  <%= link_to 'Delete this assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+  <% if !current_user.student?%>
+    <%= link_to 'Edit this assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+    <%= link_to 'Delete this assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+  <%end%>
   <%= link_to 'Back to Assignments', classroom_path(@classroom), class: 'btn btn-secondary' %>
 </div>
