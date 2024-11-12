@@ -1,29 +1,39 @@
+require "sidekiq/web"
 Rails.application.routes.draw do
   root "home#landing_page"
-  resource :password_reset
-  resources :users do
-    member do
-      get :delete
-    end
-  end
-  resource :session, only: [ :new, :create, :destroy ]
-  resource :password
-  resources :classrooms do
-    resources :enrollments do
+  scope "(:locale)", locale: /en|be/ do
+    resource :password_reset
+    resources :users do
       member do
         get :delete
       end
     end
-    collection do
-      get :enroll
-      post :enroll, to: "classrooms#create_enrollment"
-    end
-    member do
-      get :delete
-      post :send_invitations
-      get :join
+    resource :session, only: [ :new, :create, :destroy ]
+    resource :password
+    resources :classrooms do
+      resources :enrollments do
+        member do
+          get :delete
+        end
+      end
+      collection do
+        get :enroll
+        post :enroll, to: "classrooms#create_enrollment"
+      end
+      member do
+        get :delete
+        post :send_invitations
+        get :join
+      end
+      resources :assignments do
+        member do
+          get :delete
+        end
+      end
     end
   end
+  mount Rails.application.routes => "/rails/active_storage"
+  mount Sidekiq::Web => "/sidekiq"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

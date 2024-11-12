@@ -1,0 +1,28 @@
+<div class="show-assignment">
+  <h1><%= @assignment.title %></h1>
+  <p><strong>Description:</strong> <%= @assignment.description %></p>
+  <p><strong>Due Date:</strong> <%= @assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></p>
+  
+  <h2>Attached Files:</h2>
+  <% if @assignment.files.attached? %>
+    <ul>
+      <% @assignment.files.each do |file| %>
+                <div class="file-viewer">
+                  <h3><%= file.filename.to_s %></h3>
+                  <%= link_to 'View this file', rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-primary' %>
+                </div>
+            <div class="file-download">
+              <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment') %>
+            </div>
+
+        <% end %>
+    </ul>
+  <% else %>
+    <p>No files attached.</p>
+  <% end %>
+  <% if !current_user.student?%>
+    <%= link_to 'Edit this assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+    <%= link_to 'Delete this assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+  <%end%>
+  <%= link_to 'Back to Assignments', classroom_path(@classroom), class: 'btn btn-secondary' %>
+</div>

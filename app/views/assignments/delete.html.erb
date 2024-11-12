@@ -1,0 +1,21 @@
+<%= link_to("Go Back", classroom_assignments_path, class: "back-link") %>
+<div class="delete-classroom">
+    <h1>Delete Assignment</h1>
+<%= form_with model: @assignment, url: classroom_assignment_path(@classroom, @assignment), method: :delete do |f| %>
+     <p>Are you sure you want to delete the assignment with the following details?</p>
+     <table summary= "Classroom form field">
+        <tr>
+            <th>Name</th>
+            <td><%= f.object.title%></td>
+        </tr>
+        <tr>
+            <th>description</th>
+            <td><%= f.object.description%></td>
+        </tr>
+     </table>
+
+     <div class= "form buttons">
+         <%= f.submit("Delete Classroom")%>
+     </div>
+ <%end%>
+</div>

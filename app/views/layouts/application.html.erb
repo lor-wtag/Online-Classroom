@@ -24,11 +24,13 @@
     <div><%=alert%></div>
     <% if user_logged_in?%>
       <%= link_to "Profile", user_path(current_user.id)%>
-      <%= button_to "Log out", session_path(current_user.id), method: :delete%>
+      <%= button_to "Log out", session_path(locale: I18n.locale), method: :delete%>
     <%else%>
       <%= link_to "Sign Up?", new_user_path%>
       <%=link_to "Login", new_session_path%>
     <%end%>
+    <%= link_to "English", url_for(locale: 'en') %> |
+      <%= link_to "Bangla", url_for(locale: 'be') %>
     <%=link_to "Home", root_path%>
     <%= yield %>
   </body>
