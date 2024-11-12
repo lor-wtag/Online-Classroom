@@ -9,7 +9,7 @@ class Ability
       can :manage, :all
       can :create, User
     elsif user.teacher?
-      can :read, User, id: user.id
+      can :show, User, id: user.id
       can :update, User, id: user.id
       can :edit, User, id: user.id
       can :destroy, User, id: user.id
@@ -17,7 +17,7 @@ class Ability
       can :destroy, Enrollment, classroom: { user_id: user.id }
       can :manage, Assignment, classroom: { user_id: user.id }
     elsif user.student?
-      can :read, User, id: user.id
+      can :show, User, id: user.id
       can :update, User, id: user.id
       can :edit, User, id: user.id
       can :destroy, User, id: user.id
