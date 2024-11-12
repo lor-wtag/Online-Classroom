@@ -60,7 +60,7 @@ class AssignmentsController < ApplicationController
   def destroy
     @assignment= @classroom.assignments.find(params[:id])
     if @assignment.destroy
-      redirect_to classroom_path(@classroom), notice: 'Assignment was successfully deleted.'
+      redirect_to classroom_path(@classroom), notice: "Assignment was successfully deleted."
     else
       render :delete, status: :unprocessable_entity
     end
