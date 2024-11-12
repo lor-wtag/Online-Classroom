@@ -27,6 +27,7 @@ class AssignmentsController < ApplicationController
 
   def show
     @assignment= @classroom.assignments.find(params[:id])
+    @submission = @assignment.submissions.find_by(user: current_user)
   end
 
   def edit
@@ -72,6 +73,6 @@ class AssignmentsController < ApplicationController
   private
 
   def assignment_params
-    params.require(:assignment).permit(:title, :description, :due_date, files: [])
+    params.require(:assignment).permit(:title, :description, :due_date, :files)
   end
 end
