@@ -29,6 +29,12 @@ Rails.application.routes.draw do
         member do
           get :delete
         end
+        resources :submissions do
+          member do
+            get :delete
+            patch :grade
+          end
+        end
       end
     end
   end

@@ -1,0 +1,40 @@
+<h3>Submissions for <%= @assignment.title %>:</h3>
+
+<% if @assignment.submissions.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Submission Files</th>
+        <th>Grade</th>
+        <th>Feedback</th>
+        <th>Submitted At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @assignment.submissions.each do |submission| %>
+        <tr>
+          <td><%= submission.user.name %></td>
+          <td>
+            <% if submission.files.attached? %>
+              <% submission.files.each do |file| %>
+                <%= link_to file.filename.to_s, rails_blob_path(file, disposition: "inline") %><br>
+              <% end %>
+            <% else %>
+              No files uploaded
+            <% end %>
+          </td>
+          <td><%= submission.grade || "Not graded" %></td>
+          <td><%= submission.feedback || "No feedback" %></td>
+          <td><%= submission.created_at.strftime('%B %d, %Y %I:%M %p') %></td>
+          <td>
+            <%= link_to "View", classroom_assignment_submission_path(@classroom, @assignment, submission) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No submissions yet.</p>
+<% end %>

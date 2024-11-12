@@ -16,11 +16,10 @@ class Ability
       can :manage, Classroom, user_id: user.id
       can :destroy, Enrollment, classroom: { user_id: user.id }
       can :manage, Assignment, classroom: { user_id: user.id }
+      can :grade, Submission, assignment: {classroom: { user_id: user.id }}
+      can :read, Submission, assignment: {classroom: { user_id: user.id }}
     elsif user.student?
-      can :show, User, id: user.id
-      can :update, User, id: user.id
-      can :edit, User, id: user.id
-      can :destroy, User, id: user.id
+      can [:show,:update,:edit,:destroy], User, id: user.id
       can :read, Classroom, enrollments: { user_id: user.id }
       can :create, Enrollment, user_id: user.id
       can :create_enrollment, Classroom, user_id: user.id
@@ -28,6 +27,8 @@ class Ability
       can :enroll, Classroom
       can :destroy, Enrollment, user_id: user.id
       can :read, Assignment, classroom: { enrollments: { user_id: user.id } }
+      can [:new, :create], Submission
+      can [:read, :edit, :update, :delete, :destroy], Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
     end
 
     can :create, User do |user_param|

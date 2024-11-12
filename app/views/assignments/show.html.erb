@@ -23,6 +23,14 @@
   <% if !current_user.student?%>
     <%= link_to 'Edit this assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
     <%= link_to 'Delete this assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+    <%= link_to "See submissions for this assignment", classroom_assignment_submissions_path(@classroom, @assignment)%>
+  <%else%>
+    <% if @submission%>
+      <%= link_to "See submissions", classroom_assignment_submission_path(@classroom, @assignment, @submission)%>
+    <%else%>
+      <%= link_to "Submit your work for this assignment",new_classroom_assignment_submission_path(@classroom, @assignment) %>
+    <%end%>
   <%end%>
-  <%= link_to 'Back to Assignments', classroom_path(@classroom), class: 'btn btn-secondary' %>
+  
+  <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-secondary' %>
 </div>

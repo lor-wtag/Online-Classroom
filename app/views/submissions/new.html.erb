@@ -1,0 +1,34 @@
+<h1>Submit your work here</h1>
+<div class="submissiont-new">
+<%= form_with(model: @submission, url: classroom_assignment_submissions_path(@classroom, @assignment), method: :post )do |f| %>
+        <% if @submission.errors.any? %>
+        <div class="error-messages">
+            <h2>There are errors:</h2>
+            <ul>
+            <% @submission.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+            </ul>
+        </div>
+        <% end %>
+
+        <table summary="New submission form fields">
+        <tr>
+            <th>Assignment Title</th>
+            <td><%= @assignment.title %></td>
+        </tr>
+        <tr>
+            <th>Due Date</th>
+            <td><%= @assignment.due_date%></td>
+        </tr>
+        <tr>
+            <th><%= f.label :files %></th>
+    <td><%= f.file_field :files, required: true %></td>
+        </tr>
+        </table>
+
+        <div class="form-buttons">
+        <%= f.submit("Submit your work") %>
+        </div>
+    <% end %>
+</div>
