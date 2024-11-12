@@ -17,6 +17,7 @@ gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development do
+  gem "letter_opener"
   gem "web-console"
 end
 
