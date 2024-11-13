@@ -16,7 +16,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'allows access to the submissions of the assignment' do
         get :index, params: { classroom_id: classroom.id, assignment_id: assignment.id }
-        expect(assigns(:submissions)).to eq([submission_for_students]) 
+        expect(assigns(:submissions)).to eq([ submission_for_students ])
         expect(response).to render_template(:index)
       end
     end
@@ -26,7 +26,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'allows access to their own submissions for the assignment' do
         get :index, params: { classroom_id: enrollment.classroom.id, assignment_id: assignment.id }
-        expect(assigns(:submissions)).to eq([submission_for_students])
+        expect(assigns(:submissions)).to eq([ submission_for_students ])
         expect(response).to render_template(:index)
       end
     end

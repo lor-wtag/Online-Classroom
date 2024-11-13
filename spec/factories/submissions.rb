@@ -14,11 +14,10 @@ FactoryBot.define do
 
   factory :submission_for_teachers, class: "Submission" do
     grade { 89 }
-    feedback { "Great Job!"}
-    graded_at { Time.now}
+    feedback { "Great Job!" }
+    graded_at { Time.now }
 
     association :user, factory: :teacher
     association :assignment
-
   end
 end
