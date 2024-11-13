@@ -25,6 +25,7 @@ class Ability
       can [:new, :create], Comment, commentable_type: "Assignment", commentable: { classroom: { user_id: user.id } }
       can :read, Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
       can [:new, :create], Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
+      
     elsif user.student?
       can [ :show, :update, :edit, :destroy ], User, id: user.id
       can :read, Classroom, enrollments: { user_id: user.id }

@@ -25,6 +25,12 @@ Rails.application.routes.draw do
         post :send_invitations
         get :join
       end
+      resources :posts do
+        resources :comments
+        member do
+          get :delete
+        end
+      end
       resources :assignments do
         resources :comments
         member do

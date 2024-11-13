@@ -1,0 +1,30 @@
+<h1>Create A New Post</h1>
+<div class="post-new">
+  <%= form_with(model: @post, url: classroom_posts_path(@classroom), method: :post) do |f| %>
+    <% if @post.errors.any? %>
+      <div class="error-messages">
+        <h2>There are errors:</h2>
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <table summary="New Post form fields">
+      <tr>
+        <th>Post Title</th>
+        <td><%= f.text_field :title %></td>
+      </tr>
+      <tr>
+        <th>Post Content</th>
+        <td><%= f.text_area :content %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Create Post") %>
+    </div>
+  <% end %>
+</div>

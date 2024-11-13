@@ -19,6 +19,8 @@ class CommentsController < ApplicationController
       @commentable = @assignment.submissions.find(params[:submission_id])
     elsif params[:assignment_id]
       @commentable = @classroom.assignments.find(params[:assignment_id])
+    elsif params[:post_id]
+      @commentable = @classroom.posts.find(params[:post_id])
     end
   end
 
@@ -36,6 +38,8 @@ class CommentsController < ApplicationController
       classroom_assignment_path(@classroom, @commentable)
     elsif @commentable.is_a?(Submission)
       classroom_assignment_submission_path(@classroom, @assignment, @commentable)
+    elsif @commentable.is_a?(Post)
+      classroom_post_path(@classroom, @commentable)
     end
   end
 
