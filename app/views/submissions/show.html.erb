@@ -50,6 +50,23 @@
             <%= f.submit 'Submit Grade', class: 'btn btn-primary' %>
         <% end %>
     <% end %>
+    <h2>Comments</h2>
+
+    <%= form_with model: [ @classroom, @assignment, @submission, @comment ], local: true do |form| %>
+        <div class="field">
+            <%= form.label :content, 'Add a Comment' %>
+            <%= form.text_area :content, rows: 3 %>
+        </div>
+
+        <%= form.submit 'Submit Comment' %>
+    <% end %>
+
+    <h3>All Comments:</h3>
+    <% @submission.comments.each do |comment| %>
+        <div class="comment">
+        <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+        </div>
+    <% end %>
 
     
     <%= link_to 'Back to Assignments', classroom_assignment_path(@classroom,@assignment), class: 'btn btn-secondary' %>

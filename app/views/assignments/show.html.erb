@@ -31,6 +31,25 @@
       <%= link_to "Submit your work for this assignment",new_classroom_assignment_submission_path(@classroom, @assignment) %>
     <%end%>
   <%end%>
+
+  <h2>Comments</h2>
+
+  <%= form_with model: [@classroom, @assignment, @comment], local: true do |form| %>
+    <div class="field">
+      <%= form.label :content, 'Add a Comment' %>
+      <%= form.text_area :content, rows: 3 %>
+    </div>
+
+    <%= form.submit 'Submit Comment' %>
+  <% end %>
+
+  <h3>All Comments:</h3>
+  <% @assignment.comments.each do |comment| %>
+      <div class="comment">
+        <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+      </div>
+    <% end %>
+
   
   <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-secondary' %>
 </div>
