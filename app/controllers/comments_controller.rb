@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_classroom, :set_assignment, :set_commentable
-
+  load_and_authorize_resource
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user

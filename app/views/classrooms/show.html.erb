@@ -27,7 +27,7 @@
             <tr>
             <td><%= enrollment.user.name %></td>
             <td><%= enrollment.user.email %></td>
-            <td><%= link_to "View Student", "#" %></td>
+            <td><%= link_to "View Student", user_path(enrollment.user) %></td>
             <td><%= link_to 'Remove Student', delete_classroom_enrollment_path(classroom_id: @classroom.id, id: enrollment.id) %></td>
             </tr>
         <% end %>

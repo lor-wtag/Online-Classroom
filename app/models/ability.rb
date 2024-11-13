@@ -12,12 +12,19 @@ class Ability
       can :show, User, id: user.id
       can :update, User, id: user.id
       can :edit, User, id: user.id
-      can :destroy, User, id: user.id
+      can [:delete, :destroy], User, id: user.id
       can :manage, Classroom, user_id: user.id
-      can :destroy, Enrollment, classroom: { user_id: user.id }
+      can [:read, :delete, :destroy], Enrollment, classroom: { user_id: user.id }
+      can :show, User do |student|
+        student.enrollments.joins(:classroom).where(classrooms: { user_id: user.id }).exists?
+      end
       can :manage, Assignment, classroom: { user_id: user.id }
       can :grade, Submission, assignment: { classroom: { user_id: user.id } }
       can :read, Submission, assignment: { classroom: { user_id: user.id } }
+      can :read, Comment, commentable_type: "Assignment", commentable: { classroom: { user_id: user.id } }
+      can [:new, :create], Comment, commentable_type: "Assignment", commentable: { classroom: { user_id: user.id } }
+      can :read, Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
+      can [:new, :create], Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
     elsif user.student?
       can [ :show, :update, :edit, :destroy ], User, id: user.id
       can :read, Classroom, enrollments: { user_id: user.id }
@@ -31,6 +38,10 @@ class Ability
       can :read, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
       can :edit, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
       can :update, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
+      can :read, Comment, commentable_type: "Assignment", commentable: { classroom: { enrollments: { user_id: user.id } } }
+      can [:new, :create], Comment, commentable_type: "Assignment"
+      can :read, Comment, commentable_type: "Submission", commentable: { user_id: user.id }
+      can [:new, :create], Comment, commentable_type: "Submission"
 
 
     end

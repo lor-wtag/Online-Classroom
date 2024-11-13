@@ -3,8 +3,12 @@
     <p><strong>Email:</strong> <%= @user.email %></p>
     <p><strong>Role:</strong> <%= @user.role %></p>
     <%= link_to 'Back to Classrooms', classrooms_path, class: 'btn btn-secondary' %>
-    <%= link_to 'Edit Your Information', edit_user_path(@user), class: 'btn btn-primary' %>
+    <%if can? :edit, @user%>
+        <%= link_to 'Edit Your Information', edit_user_path(@user), class: 'btn btn-primary' %>
+    <%end%>
+    <%if can? :delete, @user%>
     <%= link_to 'Delete this account', delete_user_path(@user), class: 'btn btn-secondary' %>
+    <%end%>
 </div>
 
  
