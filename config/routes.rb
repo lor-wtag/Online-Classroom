@@ -31,7 +31,6 @@ Rails.application.routes.draw do
         end
         resources :submissions do
           member do
-            get :delete
             patch :grade
           end
         end

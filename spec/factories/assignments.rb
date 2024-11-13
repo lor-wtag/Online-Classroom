@@ -6,7 +6,7 @@ FactoryBot.define do
     association :classroom
 
     after(:build) do |assignment|
-      file_path = Rails.root.join("spec", "download.jpeg")
+      file_path = Rails.root.join("spec", "fixtures", "download.jpeg")
       assignment.files.attach(io: File.open(file_path), filename: "download.jpeg", content_type: "image")
     end
   end

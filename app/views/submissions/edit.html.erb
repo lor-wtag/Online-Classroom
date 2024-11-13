@@ -1,6 +1,6 @@
 <h3>Edit Submission for <%= @assignment.title %></h3>
 
-<%= form_with(model: @submission, url: classroom_assignment_submission_path(@classroom, @assignment, @submission), method: :put,local: true) do |form| %>
+<%= form_with(model: @submission, url: classroom_assignment_submission_path(@classroom, @assignment, @submission),local: true) do |form| %>
   <% if @submission.errors.any? %>
     <div class="alert alert-danger">
       <h4>There were some errors:</h4>

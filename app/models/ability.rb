@@ -25,10 +25,14 @@ class Ability
       can :create_enrollment, Classroom, user_id: user.id
       can :join, Classroom
       can :enroll, Classroom
-      can :destroy, Enrollment, user_id: user.id
+      can [:delete, :destroy], Enrollment, user_id: user.id
       can :read, Assignment, classroom: { enrollments: { user_id: user.id } }
       can [:new, :create], Submission
-      can [:read, :edit, :update, :delete, :destroy], Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
+      can :read, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
+      can :edit, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
+      can :update, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
+
+
     end
 
     can :create, User do |user_param|

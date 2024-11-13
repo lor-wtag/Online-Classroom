@@ -41,7 +41,7 @@ class SubmissionsController < ApplicationController
       end
     end
     if @submission.update(submission_params)
-      redirect_to classroom_assignment_submission_path(@classroom,@assignment, @submission), notice: "Your submission was updated successfully!"
+      redirect_to classroom_assignment_submission_path(@classroom, @assignment, @submission), notice: "Your submission was updated successfully!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -54,18 +54,11 @@ class SubmissionsController < ApplicationController
   def grade
     @submission = @assignment.submissions.find(params[:id])
     if @submission.update(grade_params)
+      GradeMailer.grade_notification(@submission.user, @assignment, @submission.grade, @submission.feedback).deliver_later
       redirect_to classroom_assignment_submissions_path, notice: "Grade and feedback added successfully."
     else
       render :edit, alert: "Error in updating grade and feedback."
     end
-  end
-
-  def delete
-    
-  end
-
-  def destroy
-    
   end
 
   private
