@@ -25,7 +25,9 @@ class CommentsController < ApplicationController
   end
 
   def set_assignment
-    @assignment = Assignment.find(params[:assignment_id])
+    if params[:assignment_id].present?
+      @assignment = Assignment.find(params[:assignment_id])
+    end
   end
 
 

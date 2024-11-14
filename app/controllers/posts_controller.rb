@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   before_action :set_classroom
   before_action :authenticate_user!
-
+  load_and_authorize_resource
   def index
-    @posts = @classroom.posts
+    @posts = @classroom.posts.order(created_at: :desc)
   end
 
   def new
