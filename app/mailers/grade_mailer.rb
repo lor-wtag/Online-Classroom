@@ -29,5 +29,4 @@ class GradeMailer < ApplicationMailer
       pdf.text "Feedback: #{feedback}", size: 12
     end
   end
-
 end
