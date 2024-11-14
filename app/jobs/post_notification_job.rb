@@ -1,5 +1,5 @@
 class PostNotificationJob < ApplicationJob
-  queue_as :mailers
+  queue_as :default
 
   def perform(classroom, post)
     classroom.users.each do |student|

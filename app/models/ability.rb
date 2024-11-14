@@ -24,11 +24,11 @@ class Ability
       can :grade, Submission, assignment: { classroom: { user_id: user.id } }
       can :read, Submission, assignment: { classroom: { user_id: user.id } }
       can :read, Comment, commentable_type: "Assignment", commentable: { classroom: { user_id: user.id } }
-      can [:new, :create], Comment, commentable_type: "Assignment", commentable: { classroom: { user_id: user.id } }
+      can [:new, :create], Comment, commentable_type: "Assignment"
       can :read, Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
-      can [:new, :create], Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
+      can [:new, :create], Comment, commentable_type: "Submission"
       can :read, Comment, commentable_type: "Post", commentable: { classroom: { user_id: user.id } }
-      can [:new, :create], Comment, commentable_type: "Post", commentable: { classroom: { user_id: user.id } }
+      can [:new, :create], Comment, commentable_type: "Post"
       
     elsif user.student?
       can [ :show, :update, :edit, :destroy ], User, id: user.id
