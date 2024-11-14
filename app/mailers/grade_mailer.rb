@@ -18,7 +18,7 @@ class GradeMailer < ApplicationMailer
 
   def generate_grade_pdf(grade, feedback, student, assignment)
     Prawn::Document.new do |pdf|
-      pdf.text "Gradeds of your submission", size: 18, style: :bold
+      pdf.text "Grades of your submission", size: 18, style: :bold
       pdf.move_down 20
 
       pdf.text "Student: #{student.name}", size: 14
