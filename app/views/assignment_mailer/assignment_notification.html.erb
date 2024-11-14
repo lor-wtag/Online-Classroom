@@ -3,5 +3,5 @@
 <p>A new assignment has been posted in your classroom: "<%= @assignment.title %>".</p>
 <p>Description: <%= @assignment.description %></p>
 <p>Due Date: <%= @assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></p>
-<p><%= link_to 'View Assignment', classroom_assignments_url(@classroom, @assignment, locale: I18n.locale) %></p>
+<p><%= link_to 'View Assignment', classroom_assignment_url(@classroom, @assignment, locale: I18n.locale) %></p>
 <p>Best regards,<br>Your Classroom Team</p>

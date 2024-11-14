@@ -14,6 +14,7 @@ class PostsController < ApplicationController
     @post = @classroom.posts.build(post_params)
     @post.user=current_user
     if @post.save
+      PostNotificationJob.perform_later(@classroom, @post)
       redirect_to classroom_posts_path(@classroom), notice: "Post created successfully."
     else
       render :new, status: :unprocessable_entity
