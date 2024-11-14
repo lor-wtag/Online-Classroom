@@ -23,4 +23,8 @@ class User < ApplicationRecord
     return false if classroom.nil?
     classrooms_as_student.exists?(classroom.id)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id name email role created_at updated_at]
+  end
 end
