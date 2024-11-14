@@ -89,7 +89,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_111208) do
   create_table "submissions", force: :cascade do |t|
     t.integer "assignment_id"
     t.integer "user_id"
-    t.string "file"
     t.decimal "grade"
     t.text "feedback"
     t.datetime "graded_at"

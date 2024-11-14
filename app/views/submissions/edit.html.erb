@@ -1,0 +1,32 @@
+<h3>Edit Submission for <%= @assignment.title %></h3>
+
+<%= form_with(model: @submission, url: classroom_assignment_submission_path(@classroom, @assignment, @submission),local: true) do |form| %>
+  <% if @submission.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>There were some errors:</h4>
+      <ul>
+        <% @submission.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%if can? :update, @submission%>
+        <div class="form-group">
+            <%= form.label :files %>
+            <%= form.file_field :files, multiple: true %>
+        </div>
+            <% if @submission.files.attached? %>
+        <h3>Current Files</h3>
+        <% @submission.files.each_with_index do |file, index| %>
+            <div class="file">
+            <%= link_to file.filename.to_s, rails_blob_path(file, disposition: 'inline'), target: '_blank' %>
+            <%= check_box_tag "submission[remove_files][]", file.id %> Remove
+            </div>
+        <% end %>
+    <%end%>
+    <%end%>
+  <%= form.submit 'Update Submission', class: 'btn btn-success' %>
+<% end %>
+
+<%= link_to 'Cancel', classroom_assignment_submission_path(@classroom, @assignment, @submission), class: 'btn btn-secondary' %>
