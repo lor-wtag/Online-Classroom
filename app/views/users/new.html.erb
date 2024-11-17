@@ -1,51 +1,66 @@
-<h1>Sign Up</h1>
-<div class="users new">
-  <%= form_with(model: @user, local: true) do |f| %>
-    <% if @user.errors.any? %>
-      <div class="error-messages">
-        <h2>There are errors:</h2>
-        <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+<h1 class="text-center mb-4">Sign Up</h1>
 
-    <table summary="User form field">
-      <tr>
-        <th>Name</th>
-        <td><%= f.text_field(:name) %></td>
-      </tr>
-      <tr>
-        <th>Email</th>
-        <td><%= f.text_field(:email) %></td>
-      </tr>
-
-      <% if current_user && current_user.admin? %>
-        <tr>
-          <th>Role</th>
-          <td><%= f.select :role, User.roles.keys %></td>
-        </tr>
-      <% else %>
-        <tr>
-          <th>Role</th>
-          <td><%= f.select :role, User.roles.slice("teacher", "student").keys%></td>
-        </tr>
+<div class="container">
+  <div class="card p-4 shadow-sm">
+    <%= form_with(model: @user, local: true) do |f| %>
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <h4>There are errors:</h4>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
 
-      <tr>
-        <th>Password</th>
-        <td><%= f.password_field(:password) %></td>
-      </tr>
-      <tr>
-        <th>Confirm Password</th>
-        <td><%= f.password_field(:password_confirmation) %></td>
-      </tr>
-    </table>
+      <div class="mb-3 row">
+        <%= f.label :name, class: "col-sm-2 col-form-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
 
-    <div class="form buttons">
-      <%= f.submit("Create Account") %>
-    </div>
-  <% end %>
+      <div class="mb-3 row">
+        <%= f.label :email, class: "col-sm-2 col-form-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </div>
+
+      <% if current_user && current_user.admin? %>
+        <div class="mb-3 row">
+          <%= f.label :role, class: "col-sm-2 col-form-label" %>
+          <div class="col-sm-10">
+            <%= f.select :role, User.roles.keys, {}, class: "form-select" %>
+          </div>
+        </div>
+      <% else %>
+        <div class="mb-3 row">
+          <%= f.label :role, class: "col-sm-2 col-form-label" %>
+          <div class="col-sm-10">
+            <%= f.select :role, User.roles.slice("teacher", "student").keys, {}, class: "form-select" %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="mb-3 row">
+        <%= f.label :password, class: "col-sm-2 col-form-label" %>
+        <div class="col-sm-10">
+          <%= f.password_field :password, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <%= f.label :password_confirmation, class: "col-sm-2 col-form-label" %>
+        <div class="col-sm-10">
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group text-center">
+        <%= f.submit "Create Account", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
 </div>

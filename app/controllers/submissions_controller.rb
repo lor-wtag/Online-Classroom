@@ -7,7 +7,8 @@ class SubmissionsController < ApplicationController
 
 
   def index
-    @submissions= @assignment.submissions
+    @q = @assignment.submissions.ransack(params[:q])
+    @submissions = @q.result
   end
   def new
     @submission = @assignment.submissions.new

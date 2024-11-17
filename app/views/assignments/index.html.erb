@@ -1,19 +1,21 @@
    <%= link_to 'Back to classroom', classroom_path(@classroom), class: 'btn btn-secondary' %>
    <h3>Assignments for this Classroom:</h3>
     <% if @classroom.assignments.any? %>
-      <table class="table table-hover">
+      <table class="table table-bordered table-hover">
         <thead class="table-dark">
           <tr>
-            <th>Assignment Title</th>
+            <th>#</th>
+            <th><%= sort_link(@q, :title, "Title") %></th>
             <th>Description</th>
-            <th>Due Date</th>
+            <th><%= sort_link(@q, :due_date, "Due Date") %></th>
 
                 <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <% @classroom.assignments.each do |assignment| %>
+          <% @assignments.each_with_index do |assignment,index| %>
             <tr>
+              <td><%= index+1 %></td>
               <td><%= assignment.title %></td>
               <td><%= assignment.description %></td>
               <td><%= assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></td>

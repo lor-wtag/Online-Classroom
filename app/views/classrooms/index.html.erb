@@ -2,12 +2,12 @@
     <h2>Your Classrooms</h2>
     
     <%if current_user.teacher?%>
-        <%= link_to 'Create a new classroom', new_classroom_path, class: 'btn btn-secondary' %>
+        <%= link_to 'Create a new classroom', new_classroom_path, class: 'btn btn-success' %>
     <%end%>
     <%if @classrooms.blank?%>
         <h3>No classrooms to show</h3>
     <%else%>
-        <table class="table table-hover" summary="Classroom List">
+        <table class="table table-bordered table-hover" summary="Classroom List">
             <thead class="table-dark">
             <tr class="header">
                 <th>#</th>
@@ -22,9 +22,9 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <%@classrooms.each do |classroom| %>
+            <%@classrooms.each_with_index do |classroom, index| %>
             <tr>
-                <td><%= classroom.id%></td>
+                <td><%= index+1%></td>
                 <td><%= classroom.name%></td>
                 <td><%= classroom.course_code%></td>
                 <% if !current_user.student?%>

@@ -8,4 +8,7 @@ class Submission < ApplicationRecord
   validates :user_id, presence: true
   validates :grade, numericality: { allow_nil: true }
   validates :feedback, length: { maximum: 300 }, allow_nil: true
+  def self.ransackable_attributes(auth_object = nil)
+    %w[index grade created_at feedback]
+  end
 end

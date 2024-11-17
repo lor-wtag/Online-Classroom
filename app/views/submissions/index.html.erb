@@ -3,19 +3,19 @@
 <h3>Submissions for <%= @assignment.title %>:</h3>
 
 <% if @assignment.submissions.any? %>
-  <table class="table table-hover">
+  <table class="table table-bordered table-hover">
     <thead class="table-dark">
       <tr>
         <th>Student</th>
         <th>Submission Files</th>
-        <th>Grade</th>
+        <th><%= sort_link(@q, :grade, "Grade") %></th>
         <th>Feedback</th>
-        <th>Submitted At</th>
+        <th><%= sort_link(@q, :created_at, "Submitted At") %></th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <% @assignment.submissions.each do |submission| %>
+      <% @submissions.each do |submission| %>
         <tr>
           <td><%= submission.user.name %></td>
           <td>

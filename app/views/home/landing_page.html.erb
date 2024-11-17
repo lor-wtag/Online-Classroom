@@ -1,19 +1,26 @@
-<%if user_not_logged_in?%>
-    <h2> <%=t("welcome")%></h2>
-    <p>Please login or Sign up to access the classroom</p>
-<%else%>
-    <h2><%= "Welcome, #{current_user.name}"%></h2>
-    <h3><%=current_user.role%></h3>
-    <%if current_user.teacher?%>
-        <%=link_to "Create a new classroom", new_classroom_path%>
-        <%= link_to "See your classrooms", classrooms_path%>
-    <%elsif current_user.student?%>
-        <%=link_to "Enroll in a classroom", enroll_classrooms_path%>
-        <%= link_to "See your classrooms", classrooms_path%>
-    <%elsif current_user.admin?%>
-        <%=link_to "Create a new user", new_user_path%>
-        <%= link_to "See all users", users_path%>
-         <%= link_to "See all classrooms", classrooms_path%>
-    <%end %>
-<%end%>
-
+<div class="container mt-5">
+  <% if user_not_logged_in? %>
+    <div class="text-center">
+      <h2 class="text-primary"><%= t("welcome") %></h2>
+      <p class="lead">Please login or sign up to access the classroom.</p>
+    </div>
+  <% else %>
+    <div class="text-center">
+      <h2 class="text-success">Welcome, <%= current_user.name %>!</h2>
+      <h4 class="text-muted text-capitalize"><%= current_user.role %></h4>
+    </div>
+    <div class="mt-4 text-center">
+      <% if current_user.teacher? %>
+        <%= link_to "Create a New Classroom", new_classroom_path, class: "btn btn-outline-primary me-2" %>
+        <%= link_to "See Your Classrooms", classrooms_path, class: "btn btn-outline-success" %>
+      <% elsif current_user.student? %>
+        <%= link_to "Enroll in a Classroom", enroll_classrooms_path, class: "btn btn-outline-primary me-2" %>
+        <%= link_to "See Your Classrooms", classrooms_path, class: "btn btn-outline-success" %>
+      <% elsif current_user.admin? %>
+        <%= link_to "Create a New User", new_user_path, class: "btn btn-outline-warning me-2" %>
+        <%= link_to "See All Users", users_path, class: "btn btn-outline-info me-2" %>
+        <%= link_to "See All Classrooms", classrooms_path, class: "btn btn-outline-dark" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

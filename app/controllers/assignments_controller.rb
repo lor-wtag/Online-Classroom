@@ -12,7 +12,8 @@ class AssignmentsController < ApplicationController
   end
 
   def index
-    @assignments= @classroom.assignments
+    @q = @classroom.assignments.ransack(params[:q])
+    @assignments = @q.result
   end
 
   def create
