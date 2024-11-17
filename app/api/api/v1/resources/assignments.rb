@@ -1,11 +1,14 @@
-module API
-  module V1
+module V1
+  module Resources
     class Assignments < Grape::API
+      version "v1", using: :path
+      format :json
+      prefix :api
       resource :assignments do
         desc "Fetch all assignments"
         get do
           assignments = Assignment.all
-          present assignments, with: API::Entities::AssignmentEntity
+          present assignments
         end
 
 
@@ -15,7 +18,7 @@ module API
         end
         get ":id" do
           assignment = Assignment.find(params[:id])
-          present assignment, with: API::Entities::AssignmentEntity
+          present assignment
         end
 
         desc "Create a new assignment"
@@ -28,7 +31,7 @@ module API
         post do
           assignment = Assignment.new(declared(params))
           if assignment.save
-            present assignment, with: API::Entities::AssignmentEntity
+            present assignment
           else
             error!({ error: assignment.errors.full_messages }, 422)
           end
