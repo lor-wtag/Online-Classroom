@@ -1,9 +1,10 @@
-<h1>Create A New Classroom</h1>
+<h1 class="mb-4">Create A New Classroom</h1>
+
 <div class="classroom-new">
   <%= form_with(model: @classroom, local: true) do |f| %>
     <% if @classroom.errors.any? %>
-      <div class="error-messages">
-        <h2>There are errors:</h2>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@classroom.errors.count, "error") %> prohibited this classroom from being saved:</h4>
         <ul>
           <% @classroom.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -12,20 +13,18 @@
       </div>
     <% end %>
 
-    <table summary="New Classroom form field">
-      <tr>
-        <th>Classroom Name</th>
-        <td><%= f.text_field(:name) %></td>
-      </tr>
-      <tr>
-        <th>Course Code</th>
-        <td><%= f.text_field(:course_code) %></td>
-      </tr>
-    </table>
+    <div class="form-group">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
 
-    <div class="form buttons">
-      <%= f.submit("Create new classroom") %>
+    <div class="form-group">
+      <%= f.label :course_code, class: "form-label" %>
+      <%= f.text_field :course_code, class: "form-control" %>
+    </div>
+
+    <div class="form-group mt-3">
+      <%= f.submit "Create New Classroom", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
-

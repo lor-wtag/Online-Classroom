@@ -34,13 +34,12 @@
 
   <h2>Comments</h2>
 
-  <%= form_with model: [@classroom, @assignment, @comment], local: true do |form| %>
-    <div class="field">
-      <%= form.label :content, 'Add a Comment' %>
-      <%= form.text_area :content, rows: 3 %>
+<%= form_with model: [@classroom, @assignment, @comment], local: true, class: 'mb-4' do |form| %>
+    <div class="form-group">
+      <%= form.label :content, 'Add a Comment', class: 'form-label' %>
+      <%= form.text_area :content, rows: 3, class: 'form-control' %>
     </div>
-
-    <%= form.submit 'Submit Comment' %>
+    <%= form.submit 'Submit Comment', class: 'btn btn-primary' %>
   <% end %>
 
   <h3>All Comments:</h3>

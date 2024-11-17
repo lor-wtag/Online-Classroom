@@ -1,7 +1,8 @@
-<div class="show-submission">
-    <h1><%= @assignment.title %></h1>
+<div class="show-submission container my-4">
+    <h1 class="mb-4"><%= @assignment.title %></h1>
     <p><strong>Description:</strong> <%= @assignment.description %></p>
     <p><strong>Due Date:</strong> <%= @assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></p>
+
     <% if @submission.grade.present? %>
         <p><strong>Grade:</strong> <%= @submission.grade %></p>
     <% else %>
@@ -12,62 +13,63 @@
         <p><strong>Feedback:</strong> <%= @submission.feedback %></p>
     <% else %>
         <p>No feedback provided.</p>
-<% end %>
-  
-    <h2>Attached Files:</h2>
-    <% if @submission.files.attached? %>
-        <ul>
-        <% @submission.files.each do |file| %>
-                <div class="file-viewer">
-                    <h3><%= file.filename.to_s %></h3>
-                    <%= link_to 'View this file', rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-primary' %>
-                </div>
-                <div class="file-download">
-                <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment') %>
-                </div>
+    <% end %>
 
+    <h2 class="mt-4">Attached Files:</h2>
+    <% if @submission.files.attached? %>
+        <ul class="list-unstyled">
+            <% @submission.files.each do |file| %>
+                <div class="file-viewer mb-3">
+                    <h5><%= file.filename.to_s %></h5>
+                    <%= link_to 'View this file', rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-outline-primary btn-sm' %>
+                </div>
+                <div class="file-download mb-3">
+                    <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment'), class: 'btn btn-outline-warning btn-sm' %>
+                </div>
             <% end %>
         </ul>
-        <%=link_to "Edit this submission", edit_classroom_assignment_submission_path(@classroom, @assignment, @submission)%>
+        <%= link_to "Edit this submission", edit_classroom_assignment_submission_path(@classroom, @assignment, @submission), class: 'btn btn-outline-info btn-sm mb-3' %>
     <% else %>
         <p>No files attached.</p>
-        <%= link_to "Submit your work for this assignment",new_classroom_assignment_submission_path(@classroom, @assignment) %>
-    <% end %>  
+        <%= link_to "Submit your work for this assignment", new_classroom_assignment_submission_path(@classroom, @assignment), class: 'btn btn-outline-success btn-sm' %>
+    <% end %>
+
     <% if can? :grade, @submission %>
-        <%= form_with model: @submission, url: grade_classroom_assignment_submission_path(@classroom, @assignment, @submission), method: :patch do |f| %>
-            <div class="form-group">
-            <%= f.label :grade %>
-            <%= f.number_field :grade, step: 0.1, class: 'form-control' %>
+        <h3 class="mt-4">Grade this Submission</h3>
+        <%= form_with model: @submission, url: grade_classroom_assignment_submission_path(@classroom, @assignment, @submission), method: :patch, local: true do |f| %>
+            <div class="form-group mb-3">
+                <%= f.label :grade, 'Grade', class: 'form-label' %>
+                <%= f.number_field :grade, step: 0.1, class: 'form-control' %>
             </div>
 
-            <div class="form-group">
-            <%= f.label :feedback %>
-            <%= f.text_area :feedback, class: 'form-control' %>
+            <div class="form-group mb-3">
+                <%= f.label :feedback, 'Feedback', class: 'form-label' %>
+                <%= f.text_area :feedback, class: 'form-control' %>
             </div>
 
             <%= f.hidden_field :graded_at, value: Time.current %>
 
-            <%= f.submit 'Submit Grade', class: 'btn btn-primary' %>
+            <%= f.submit 'Submit Grade', class: 'btn btn-primary btn-sm' %>
         <% end %>
     <% end %>
-    <h2>Comments</h2>
 
-    <%= form_with model: [ @classroom, @assignment, @submission, @comment ], local: true do |form| %>
-        <div class="field">
-            <%= form.label :content, 'Add a Comment' %>
-            <%= form.text_area :content, rows: 3 %>
+    <h2 class="mt-4">Comments</h2>
+
+    <%= form_with model: [@classroom, @assignment, @submission, @comment], local: true do |form| %>
+        <div class="form-group mb-3">
+            <%= form.label :content, 'Add a Comment', class: 'form-label' %>
+            <%= form.text_area :content, rows: 3, class: 'form-control' %>
         </div>
 
-        <%= form.submit 'Submit Comment' %>
+        <%= form.submit 'Submit Comment', class: 'btn btn-outline-primary' %>
     <% end %>
 
-    <h3>All Comments:</h3>
+    <h3 class="mt-4">All Comments:</h3>
     <% @submission.comments.each do |comment| %>
-        <div class="comment">
-        <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+        <div class="comment mb-3">
+            <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
         </div>
     <% end %>
 
-    
-    <%= link_to 'Back to Assignments', classroom_assignment_path(@classroom,@assignment), class: 'btn btn-secondary' %>
+    <%= link_to 'Back to Assignments', classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
 </div>

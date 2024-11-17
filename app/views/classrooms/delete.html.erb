@@ -1,26 +1,27 @@
-<%= link_to("Go Back", classrooms_path, class: "back-link") %>
-<div class="delete-classroom">
-    <h1>Delete Classroom</h1>
-<%= form_for @classroom, method: :delete do |f| %>
-     <p>Are you sure you want to delete the classroomt with the following details?</p>
-     <table summary= "Classroom form field">
-        <tr>
-            <th>Name</th>
-            <td><%= f.object.name%></td>
-        </tr>
-        <tr>
-            <th>Course Code</th>
-            <td><%= f.object.course_code%></td>
-        </tr>
-        <tr>
-            <th>No. of Students</th>
-            <td><%= f.object.users.count%></td>
-        </tr>
-       
-     </table>
+<%= link_to "Go Back", classrooms_path, class: "btn btn-secondary mb-3" %>
 
-     <div class= "form buttons">
-         <%= f.submit("Delete Classroom")%>
-     </div>
- <%end%>
+<div class="delete-classroom">
+  <h1 class="mb-4">Delete Classroom</h1>
+  <%= form_for @classroom, method: :delete do |f| %>
+    <p>Are you sure you want to delete the classroom with the following details?</p>
+    
+    <table class="table table-bordered mb-3">
+      <tr>
+        <th>Name</th>
+        <td><%= f.object.name %></td>
+      </tr>
+      <tr>
+        <th>Course Code</th>
+        <td><%= f.object.course_code %></td>
+      </tr>
+      <tr>
+        <th>No. of Students</th>
+        <td><%= f.object.users.count %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit "Delete Classroom", class: "btn btn-danger" %>
+    </div>
+  <% end %>
 </div>

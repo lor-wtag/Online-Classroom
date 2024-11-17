@@ -1,6 +1,6 @@
 <%= form_with model: @classroom, local: true do |form| %>
   <% if @classroom.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(@classroom.errors.count, "error") %> prohibited this classroom from being saved:</h2>
       <ul>
         <% @classroom.errors.full_messages.each do |message| %>
@@ -10,18 +10,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-group">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :course_code %>
-    <%= form.text_area :course_code%>
+  <div class="form-group">
+    <%= form.label :course_code, class: "form-label" %>
+    <%= form.text_area :course_code, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit "Update Classroom" %>
+  <div class="form-group">
+    <%= form.submit "Update Classroom", class: "btn btn-primary" %>
   </div>
 <% end %>
-
