@@ -7,7 +7,8 @@
     <%if @classrooms.blank?%>
         <h3>No classrooms to show</h3>
     <%else%>
-        <table class="listing" summary="Classroom List">
+        <table class="table table-hover" summary="Classroom List">
+            <thead class="table-dark">
             <tr class="header">
                 <th>#</th>
                 <th>Name</th>
@@ -20,6 +21,7 @@
                 <%end%>
                 <th>Actions</th>
             </tr>
+            </thead>
             <%@classrooms.each do |classroom| %>
             <tr>
                 <td><%= classroom.id%></td>
@@ -32,10 +34,10 @@
                     <td><%=classroom.teacher.name%></td>
                 <%end%>
                 <td class="actions">
-                    <%=link_to("Show", classroom_path(classroom),:class => "action edit")%>
+                    <%=link_to("Show", classroom_path(classroom), class: 'btn btn-outline-primary btn-sm')%>
                     <%if !current_user.student?%>
-                        <%=link_to("Edit", edit_classroom_path(classroom),:class => "action edit")%>
-                        <%=link_to("Delete",delete_classroom_path(classroom))%>
+                        <%=link_to("Edit", edit_classroom_path(classroom), class: 'btn btn-outline-secondary btn-sm')%>
+                        <%=link_to("Delete",delete_classroom_path(classroom), class: 'btn btn-outline-danger btn-sm')%>
                     <%end%>
 
                 </td>

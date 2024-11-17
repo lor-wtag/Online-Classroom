@@ -1,6 +1,7 @@
 <h1>Posts in <%= @classroom.name %></h1>
 
 <%= link_to 'Create a New Post', new_classroom_post_path(@classroom), class: 'btn btn-primary' %>
+<%= link_to 'Back to classroom', classroom_path(@classroom), class: 'btn btn-secondary' %>
 
 <% if @posts.any? %>
   <div class="posts-list">
@@ -11,12 +12,12 @@
         <h5><%= "#{post.user.role }: #{post.user.name}"%></h5>
         
         <div class="post-actions">
-          <%= link_to 'View', classroom_post_path(@classroom, post), class: 'btn btn-info' %>
+          <%= link_to 'View', classroom_post_path(@classroom, post), class: 'btn btn-outline-primary' %>
           <% if current_user == post.user || current_user.admin?%>
-            <%= link_to 'Edit', edit_classroom_post_path(@classroom, post), class: 'btn btn-warning' %>
+            <%= link_to 'Edit', edit_classroom_post_path(@classroom, post), class: 'btn btn-outline-info' %>
           <%end%>
           <% if current_user == post.user || current_user.admin? || current_user==@classroom.teacher%>
-            <%= link_to 'Delete', delete_classroom_post_path(@classroom, post), class: 'btn btn-danger' %>
+            <%= link_to 'Delete', delete_classroom_post_path(@classroom, post), class: 'btn btn-outline-danger' %>
           <% end %>
         </div>
       </div>

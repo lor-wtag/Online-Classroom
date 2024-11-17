@@ -1,8 +1,10 @@
+  <%= link_to 'Back to Assignment', classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+
 <h3>Submissions for <%= @assignment.title %>:</h3>
 
 <% if @assignment.submissions.any? %>
-  <table>
-    <thead>
+  <table class="table table-hover">
+    <thead class="table-dark">
       <tr>
         <th>Student</th>
         <th>Submission Files</th>
@@ -29,7 +31,7 @@
           <td><%= submission.feedback || "No feedback" %></td>
           <td><%= submission.created_at.strftime('%B %d, %Y %I:%M %p') %></td>
           <td>
-            <%= link_to "View", classroom_assignment_submission_path(@classroom, @assignment, submission) %>
+            <%= link_to "View", classroom_assignment_submission_path(@classroom, @assignment, submission), class:'btn btn-outline-primary' %>
           </td>
         </tr>
       <% end %>

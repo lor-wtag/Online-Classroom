@@ -7,7 +7,7 @@
         <%= link_to 'Edit Your Information', edit_user_path(@user), class: 'btn btn-primary' %>
     <%end%>
     <%if can? :delete, @user%>
-    <%= link_to 'Delete this account', delete_user_path(@user), class: 'btn btn-secondary' %>
+    <%= link_to 'Delete this account', delete_user_path(@user), class: 'btn btn-danger' %>
     <%end%>
 </div>
 

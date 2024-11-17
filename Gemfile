@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
+gem "bootstrap"
+gem "sassc-rails"
 gem "cancancan"
 gem "grape"
 gem "grape-entity"

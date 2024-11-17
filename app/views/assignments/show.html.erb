@@ -9,10 +9,10 @@
       <% @assignment.files.each do |file| %>
                 <div class="file-viewer">
                   <h3><%= file.filename.to_s %></h3>
-                  <%= link_to 'View this file', rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-primary' %>
+                  <%= link_to 'View this file', rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-outline-primary btn-sm' %>
                 </div>
             <div class="file-download">
-              <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment') %>
+              <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment'), class: 'btn btn-outline-warning btn-sm'  %>
             </div>
 
         <% end %>
@@ -21,9 +21,9 @@
     <p>No files attached.</p>
   <% end %>
   <% if !current_user.student?%>
-    <%= link_to 'Edit this assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
-    <%= link_to 'Delete this assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
-    <%= link_to "See submissions for this assignment", classroom_assignment_submissions_path(@classroom, @assignment)%>
+    <%= link_to 'Edit this assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-outline-info' %>
+    <%= link_to 'Delete this assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-outline-danger' %>
+    <%= link_to "See submissions for this assignment", classroom_assignment_submissions_path(@classroom, @assignment), class: 'btn btn-primary'%>
   <%else%>
     <% if @submission%>
       <%= link_to "See submissions", classroom_assignment_submission_path(@classroom, @assignment, @submission)%>
@@ -51,5 +51,5 @@
     <% end %>
 
   
-  <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-secondary' %>
+  <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-warning' %>
 </div>
