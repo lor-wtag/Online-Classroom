@@ -23,7 +23,9 @@
         </tr>
         <tr>
             <th>Due Date</th>
-            <td><%= f.datetime_select :due_date %></td>
+            <td>
+              <%= f.date_select :due_date, start_year: Time.now.year, end_year: Time.now.year + 5, default: Time.now %>
+          <%= f.time_select :due_date, default: Time.now %></td>
         </tr>
         <tr>
             <th>Upload Files (PDFs, Images, etc.)</th>
