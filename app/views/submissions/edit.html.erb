@@ -23,7 +23,7 @@
       <% @submission.files.each_with_index do |file, index| %>
         <div class="file mb-2">
           <%= link_to file.filename.to_s, rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-link' %>
-          <%= check_box_tag "submission[remove_files][]", file.id, false, class: 'form-check-input' %> 
+          <%= check_box_tag "submission[remove_files][]", file.id%> 
           <label class="form-check-label" for="submission_remove_files_<%= file.id %>">Remove</label>
         </div>
       <% end %>

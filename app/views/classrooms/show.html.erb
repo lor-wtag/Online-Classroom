@@ -1,78 +1,106 @@
-<div class="container mt-4">
-  <div class="row">
+<div class="container mt-5">
+  <!-- Header Section -->
+  <div class="row mb-4">
     <div class="col-md-12 text-center">
-      <h1 class="display-4"><%= @classroom.name %></h1>
-      <p class="text-muted"><strong>Course Code:</strong> <%= @classroom.course_code %></p>
+      <h1 class="display-4 text-primary"><%= @classroom.name %></h1>
+      <p class="lead text-muted">
+        <strong>Course Code:</strong> <%= @classroom.course_code %>
+      </p>
       <% if !current_user.student? %>
-        <p><strong>Classroom Code:</strong> <%= @classroom.classroom_code %></p>
+        <p class="text-info">
+          <strong>Classroom Code:</strong> <%= @classroom.classroom_code %>
+        </p>
       <% end %>
-      <p><strong>Created By:</strong> <%= @classroom.teacher.name %></p>
+      <p class="text-secondary">
+        <strong>Created By:</strong> <%= @classroom.teacher.name %>
+      </p>
     </div>
   </div>
 
-  <div class="row my-4">
+  <!-- Action Buttons -->
+  <div class="row mb-4">
     <div class="col-md-12 d-flex justify-content-between">
-      <%= link_to 'Back to Classrooms', classrooms_path, class: 'btn btn-secondary' %>
+      <%= link_to 'Back to Classrooms', classrooms_path, class: 'btn btn-outline-secondary' %>
       <% if current_user.student? %>
-        <%= link_to 'Leave this Classroom', delete_classroom_enrollment_path(@classroom, @classroom.enrollments.find_by(user_id: current_user.id)), class: 'btn btn-warning' %>
+        <%= link_to 'Leave this Classroom', delete_classroom_enrollment_path(@classroom, @classroom.enrollments.find_by(user_id: current_user.id)), class: 'btn btn-outline-warning' %>
       <% end %>
     </div>
   </div>
 
+  <!-- Teacher-Only Section -->
   <% if !current_user.student? %>
-    <div class="row my-4">
-      <div class="col-md-6">
-        <h3>Manage Classroom</h3>
-        <%= link_to 'Edit Classroom', edit_classroom_path(@classroom), class: 'btn btn-primary mb-2' %>
-        <%= link_to 'Delete Classroom', delete_classroom_path(@classroom), class: 'btn btn-danger mb-2' %>
-        <%= link_to 'Create a New Assignment', new_classroom_assignment_path(@classroom), class: 'btn btn-info mb-2' %>
-      </div>
-  <%end%>
-      <div class="col-md-6">
-        <%= link_to 'Create a Post', new_classroom_post_path(@classroom), class: 'btn btn-success mb-2' %>
-        <h3>View Content</h3>
-        <%= link_to 'See Posts', classroom_posts_path(@classroom), class: 'btn btn-primary mb-2' %>
-        <%= link_to 'See Assignments', classroom_assignments_path(@classroom), class: 'btn btn-info mb-2' %>
-      </div>
-    </div>
-
-  <% if !current_user.student? %>
-    <div class="row my-4">
-      <div class="col-md-12">
-        <h3>Enrolled Students</h3>
-        <table class="table table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th>Student Name</th>
-              <th>Student Email</th>
-              <th>Actions</th>
-              <th>Remove Student</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @classroom.enrollments.each do |enrollment| %>
-              <tr>
-                <td><%= enrollment.user.name %></td>
-                <td><%= enrollment.user.email %></td>
-                <td><%= link_to 'View Student', user_path(enrollment.user), class: 'btn btn-outline-primary btn-sm' %></td>
-                <td><%= link_to 'Remove', delete_classroom_enrollment_path(classroom_id: @classroom.id, id: enrollment.id), class: 'btn btn-outline-danger btn-sm' %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="row my-4">
-      <div class="col-md-12">
-        <h3>Invite Students</h3>
-        <%= form_with url: send_invitations_classroom_path(@classroom), method: :post, class: 'mb-3' do %>
-          <div class="mb-3">
-            <label for="student_emails" class="form-label">Enter Student Emails (Comma-Separated):</label>
-            <%= text_area_tag :student_emails, '', placeholder: 'student1@example.com, student2@example.com', class: 'form-control' %>
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage Classroom</h4>
+            <%= link_to 'Edit Classroom', edit_classroom_path(@classroom), class: 'btn btn-primary mb-2' %>
+            <%= link_to 'Delete Classroom', delete_classroom_path(@classroom), class: 'btn btn-danger mb-2' %>
+            <%= link_to 'Create a New Assignment', new_classroom_assignment_path(@classroom), class: 'btn btn-info mb-2' %>
           </div>
-          <%= submit_tag 'Send Invitations', class: 'btn btn-success' %>
-        <% end %>
+        </div>
+      </div>
+  <% end %>
+
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Classroom Content</h4>
+            <%= link_to 'Create a Post', new_classroom_post_path(@classroom), class: 'btn btn-success mb-2' %>
+            <%= link_to 'See Posts', classroom_posts_path(@classroom), class: 'btn btn-outline-primary mb-2' %>
+            <%= link_to 'See Assignments', classroom_assignments_path(@classroom), class: 'btn btn-outline-info mb-2' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% if !current_user.student? %>
+    <!-- Enrolled Students Section -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Enrolled Students</h4>
+            <table class="table table-bordered table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @classroom.enrollments.each do |enrollment| %>
+                  <tr>
+                    <td><%= enrollment.user.name %></td>
+                    <td><%= enrollment.user.email %></td>
+                    <td><%= link_to 'View Student', user_path(enrollment.user), class: 'btn btn-outline-primary btn-sm' %></td>
+                    <td><%= link_to 'Remove', delete_classroom_enrollment_path(classroom_id: @classroom.id, id: enrollment.id), class: 'btn btn-outline-danger btn-sm' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invite Students Section -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Invite Students</h4>
+            <%= form_with url: send_invitations_classroom_path(@classroom), method: :post, class: 'mb-3' do %>
+              <div class="mb-3">
+                <label for="student_emails" class="form-label">Enter Emails (Comma-Separated):</label>
+                <%= text_area_tag :student_emails, '', placeholder: 'student1@example.com, student2@example.com', class: 'form-control' %>
+              </div>
+              <%= submit_tag 'Send Invitations', class: 'btn btn-success' %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>

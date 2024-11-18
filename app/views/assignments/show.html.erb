@@ -1,54 +1,89 @@
-<div class="show-assignment">
-  <h1><%= @assignment.title %></h1>
-  <p><strong>Description:</strong> <%= @assignment.description %></p>
-  <p><strong>Due Date:</strong> <%= @assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></p>
-  
-  <h2>Attached Files:</h2>
-  <% if @assignment.files.attached? %>
-    <ul>
-      <% @assignment.files.each do |file| %>
-                <div class="file-viewer">
-                  <h3><%= file.filename.to_s %></h3>
-                  <%= link_to 'View this file', rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-outline-primary btn-sm' %>
-                </div>
-            <div class="file-download">
-              <%= link_to 'Download ' + file.filename.to_s, rails_blob_path(file, disposition: 'attachment'), class: 'btn btn-outline-warning btn-sm'  %>
-            </div>
-
-        <% end %>
-    </ul>
-  <% else %>
-    <p>No files attached.</p>
-  <% end %>
-  <% if !current_user.student?%>
-    <%= link_to 'Edit this assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-outline-info' %>
-    <%= link_to 'Delete this assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-outline-danger' %>
-    <%= link_to "See submissions for this assignment", classroom_assignment_submissions_path(@classroom, @assignment), class: 'btn btn-primary'%>
-  <%else%>
-    <% if @submission%>
-      <%= link_to "See submissions", classroom_assignment_submission_path(@classroom, @assignment, @submission)%>
-    <%else%>
-      <%= link_to "Submit your work for this assignment",new_classroom_assignment_submission_path(@classroom, @assignment) %>
-    <%end%>
-  <%end%>
-
-  <h2>Comments</h2>
-
-<%= form_with model: [@classroom, @assignment, @comment], local: true, class: 'mb-4' do |form| %>
-    <div class="form-group">
-      <%= form.label :content, 'Add a Comment', class: 'form-label' %>
-      <%= form.text_area :content, rows: 3, class: 'form-control' %>
+<div class="container mt-5">
+  <!-- Assignment Header -->
+  <div class="row mb-4">
+    <div class="col-md-12 text-center">
+      <h1 class="text-primary"><%= @assignment.title %></h1>
+      <p class="text-muted"><strong>Description:</strong> <%= @assignment.description %></p>
+      <p><strong>Due Date:</strong> <%= @assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></p>
     </div>
-    <%= form.submit 'Submit Comment', class: 'btn btn-primary' %>
-  <% end %>
+  </div>
 
-  <h3>All Comments:</h3>
-  <% @assignment.comments.each do |comment| %>
-      <div class="comment">
-        <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+  <!-- Attached Files Section -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h2 class="text-secondary">Attached Files</h2>
+      <% if @assignment.files.attached? %>
+        <ul class="list-group">
+          <% @assignment.files.each do |file| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <h5><%= file.filename.to_s %></h5>
+                <%= link_to 'View File', rails_blob_path(file, disposition: 'inline'), target: '_blank', class: 'btn btn-outline-primary btn-sm me-2' %>
+                <%= link_to 'Download File', rails_blob_path(file, disposition: 'attachment'), class: 'btn btn-outline-warning btn-sm' %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted">No files attached.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Actions Section -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <% if !current_user.student? %>
+        <%= link_to 'Edit Assignment', edit_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-outline-info me-2' %>
+        <%= link_to 'Delete Assignment', delete_classroom_assignment_path(@classroom, @assignment), class: 'btn btn-outline-danger me-2' %>
+        <%= link_to 'See Submissions', classroom_assignment_submissions_path(@classroom, @assignment), class: 'btn btn-primary me-2' %>
+      <% else %>
+        <% if @submission %>
+          <%= link_to 'View Your Submission', classroom_assignment_submission_path(@classroom, @assignment, @submission), class: 'btn btn-outline-primary me-2' %>
+        <% else %>
+          <%= link_to 'Submit Your Work', new_classroom_assignment_submission_path(@classroom, @assignment), class: 'btn btn-success me-2' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h2 class="text-secondary">Comments</h2>
+      
+      <!-- Add Comment Form -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <%= form_with model: [@classroom, @assignment, @comment], local: true, class: 'mb-4' do |form| %>
+            <div class="form-group mb-3">
+              <%= form.label :content, 'Add a Comment', class: 'form-label' %>
+              <%= form.text_area :content, rows: 3, class: 'form-control' %>
+            </div>
+            <%= form.submit 'Submit Comment', class: 'btn btn-primary' %>
+          <% end %>
+        </div>
       </div>
-    <% end %>
 
-  
-  <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-warning' %>
+      <!-- Display All Comments -->
+      <% if @assignment.comments.any? %>
+        <ul class="list-group">
+          <% @assignment.comments.each do |comment| %>
+            <li class="list-group-item">
+              <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted">No comments yet. Be the first to comment!</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-warning' %>
+    </div>
+  </div>
 </div>

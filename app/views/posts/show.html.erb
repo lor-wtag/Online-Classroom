@@ -1,27 +1,49 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.content %></p>
-
-<div class="post-comments">
-  <h3>Comments:</h3>
-
-  <%= form_with(model: [@classroom, @post, @comment], local: true) do |f| %>
-    <div class="form-group">
-      <%= f.label :content, 'Your Comment' %>
-      <%= f.text_area :content, class: 'form-control' %>
+<div class="container mt-5">
+  <!-- Post Title and Content -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1 class="text-primary"><%= @post.title %></h1>
+      <p class="fs-5"><%= @post.content %></p>
     </div>
-    <%= f.submit 'Post Comment', class: 'btn btn-primary' %>
-  <% end %>
+  </div>
+
+  <!-- Comment Section -->
+  <div class="row mb-5">
+    <div class="col-md-12">
+      <div class="post-comments border rounded p-4 shadow-sm">
+        <h3 class="mb-4 text-secondary">Add a Comment:</h3>
+        <%= form_with(model: [@classroom, @post, @comment], local: true, class: 'mb-4') do |f| %>
+          <div class="form-group mb-3">
+            <%= f.label :content, 'Your Comment', class: 'form-label' %>
+            <%= f.text_area :content, class: 'form-control', rows: 3, placeholder: "Write your comment here..." %>
+          </div>
+          <%= f.submit 'Post Comment', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display Comments -->
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="mb-4 text-secondary">Comments:</h3>
+      <% if @post.comments.any? %>
+        <% @post.comments.each do |comment| %>
+          <div class="comment border-bottom py-3">
+            <p><strong class="text-primary"><%= comment.user.name %>:</strong></p>
+            <p class="ms-3"><%= comment.content %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-muted">No comments for this post yet.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Back to Posts Link -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <%= link_to 'Back to Posts', classroom_posts_path(@classroom), class: 'btn btn-secondary' %>
+    </div>
+  </div>
 </div>
-
-<h3>All Comments:</h3>
-<%if @post.comments.any?%>
-  <% @post.comments.each do |comment| %>
-    <div class="comment">
-      <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
-    </div>
-  <% end %>
-<%else%>
-  <p>No comments for this post</p>
-<%end%>
-
-<%= link_to 'Back to Posts', classroom_posts_path(@classroom), class: 'btn btn-secondary' %>
