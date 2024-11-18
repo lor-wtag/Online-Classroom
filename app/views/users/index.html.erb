@@ -22,7 +22,7 @@
                 <td class="actions">
                     <%= link_to t('actions.show'), user_path(user), class: 'btn btn-outline-primary btn-sm'%>
                     <%= link_to t('actions.edit'), edit_user_path(user), class: 'btn btn-outline-secondary btn-sm' %>
-                    <%= link_to t('actions.delete'), user_path(user), method: :delete, class: 'btn btn-outline-danger btn-sm'%>
+                    <%= link_to t('actions.delete'), delete_user_path(user), method: :delete, class: 'btn btn-outline-danger btn-sm'%>
                 </td>
             </tr>
             <% end %>

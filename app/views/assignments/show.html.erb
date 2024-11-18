@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <!-- Assignment Header -->
+
   <div class="row mb-4">
     <div class="col-md-12 text-center">
       <h1 class="text-primary"><%= @assignment.title %></h1>
@@ -8,7 +8,6 @@
     </div>
   </div>
 
-  <!-- Attached Files Section -->
   <div class="row mb-4">
     <div class="col-md-12">
       <h2 class="text-secondary">Attached Files</h2>
@@ -30,7 +29,6 @@
     </div>
   </div>
 
-  <!-- Actions Section -->
   <div class="row mb-4">
     <div class="col-md-12">
       <% if !current_user.student? %>
@@ -47,12 +45,10 @@
     </div>
   </div>
 
-  <!-- Comments Section -->
   <div class="row mb-4">
     <div class="col-md-12">
       <h2 class="text-secondary">Comments</h2>
       
-      <!-- Add Comment Form -->
       <div class="card mb-4">
         <div class="card-body">
           <%= form_with model: [@classroom, @assignment, @comment], local: true, class: 'mb-4' do |form| %>
@@ -64,8 +60,6 @@
           <% end %>
         </div>
       </div>
-
-      <!-- Display All Comments -->
       <% if @assignment.comments.any? %>
         <ul class="list-group">
           <% @assignment.comments.each do |comment| %>
@@ -80,7 +74,6 @@
     </div>
   </div>
 
-  <!-- Back Button -->
   <div class="row mb-4">
     <div class="col-md-12">
       <%= link_to 'Back to Assignments', classroom_assignments_path(@classroom), class: 'btn btn-warning' %>

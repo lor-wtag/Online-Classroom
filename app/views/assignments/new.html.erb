@@ -26,11 +26,11 @@
 
     <div class="form-group mb-3">
       <%= f.label :due_date, 'Due Date', class: 'form-label' %>
-      <%= f.datetime_select :due_date, class: 'form-control' %>
+      <%= f.datetime_select :due_date, class: 'form-select' %>
     </div>
 
     <div class="form-group mb-3">
-      <%= f.label :files, 'Upload Files (PDFs, Images, etc.)', class: 'form-label' %>
+      <%= f.label :files, 'Upload Files', class: 'form-label' %>
       <%= f.file_field :files, multiple: true, class: 'form-control' %>
     </div>
 
