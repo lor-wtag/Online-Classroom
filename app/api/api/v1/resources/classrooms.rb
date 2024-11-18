@@ -11,7 +11,6 @@ module V1
           present classrooms
         end
 
-
         desc "Fetch a specific classroom"
         params do
           requires :id, type: Integer, desc: "Classroom ID"
@@ -34,6 +33,35 @@ module V1
             present classroom
           else
             error!({ error: classroom.errors.full_messages }, 422)
+          end
+        end
+
+        desc "Update an existing classroom"
+        params do
+          requires :id, type: Integer, desc: "Classroom ID"
+          optional :name, type: String, desc: "Classroom Name"
+          optional :user_id, type: Integer, desc: "Teacher ID"
+          optional :course_code, type: String, desc: "Course Code"
+          optional :classroom_code, type: String, desc: "Classroom Code"
+        end
+        put ":id" do
+          classroom = Classroom.find(params[:id])
+          if classroom.update(declared(params))
+            present classroom
+          else
+            error!({ error: classroom.errors.full_messages }, 422)
+          end
+        end
+        desc "Delete a classroom"
+        params do
+          requires :id, type: Integer, desc: "Classroom ID"
+        end
+        delete ":id" do
+          classroom = Classroom.find(params[:id])
+          if classroom.destroy
+            { message: "Classroom deleted successfully" }
+          else
+            error!({ error: "Failed to delete classroom" }, 422)
           end
         end
       end
