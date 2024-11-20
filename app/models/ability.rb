@@ -31,7 +31,7 @@ class Ability
       can [ :new, :create ], Comment, commentable_type: "Post"
 
     elsif user.student?
-      can [ :show, :update, :edit, :destroy ], User, id: user.id
+      can [ :show, :update, :edit, :delete, :destroy ], User, id: user.id
       can :read, Classroom, enrollments: { user_id: user.id }
       can :create, Enrollment, user_id: user.id
       can :create_enrollment, Classroom, user_id: user.id

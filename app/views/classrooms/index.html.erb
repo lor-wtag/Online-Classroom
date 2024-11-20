@@ -20,7 +20,7 @@
             <% if !current_user.student? %>
               <th>Student Count</th>
             <% end %>
-            <% if current_user.admin? %>
+            <% if !current_user.teacher? %>
               <th>Created by</th>
             <% end %>
             <th>Actions</th>
@@ -35,7 +35,7 @@
               <% if !current_user.student? %>
                 <td><%= classroom.users.count %></td>
               <% end %>
-              <% if current_user.admin? %>
+              <% if !current_user.teacher? %>
                 <td><%= classroom.teacher.name %></td>
               <% end %>
               <td class="actions">

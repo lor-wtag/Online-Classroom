@@ -17,7 +17,6 @@ class SubmissionsController < ApplicationController
   def create
     @submission = @assignment.submissions.build(submission_params)
     @submission.user = current_user
-
     if @submission.save
       redirect_to classroom_assignment_path(@classroom, @assignment), notice: "Your submission was successful!"
     else
@@ -31,9 +30,7 @@ class SubmissionsController < ApplicationController
 
   def update
     @submission = @assignment.submissions.find(params[:id])
-    if params[:submission][:files].present?
-      @submission.files.attach(params[:submission][:files])
-    end
+    
     if params[:submission][:remove_files].present?
       files_to_remove = params[:submission][:remove_files].map(&:to_i)
       files_to_remove.each do |file_id|
@@ -41,6 +38,10 @@ class SubmissionsController < ApplicationController
         file.purge if file
       end
     end
+    if params[:submission][:files].present?
+      @submission.files.attach(params[:submission][:files])
+    end
+
     if @submission.update(submission_params)
       redirect_to classroom_assignment_submission_path(@classroom, @assignment, @submission), notice: "Your submission was updated successfully!"
     else

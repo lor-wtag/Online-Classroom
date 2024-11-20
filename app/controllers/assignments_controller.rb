@@ -18,6 +18,9 @@ class AssignmentsController < ApplicationController
 
   def create
     @assignment= @classroom.assignments.build(assignment_params)
+    if params[:assignment][:files].present?
+      @assignment.files.attach(params[:assignment][:files])
+    end
     if @assignment.save
       AssignmentNotificationJob.perform_later(@classroom, @assignment)
       redirect_to classroom_path(@classroom), notice: "Assignment created successfully."

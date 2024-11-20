@@ -1,6 +1,6 @@
 be:
   hello: "Shagotom"
-  welcome: "Welcome to the Classroom in bangla"
+  welcome: "স্বাগতম"
   titles:
     default: "bangla translation"
   table_headers:

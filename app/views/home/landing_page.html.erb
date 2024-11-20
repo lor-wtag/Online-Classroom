@@ -2,7 +2,7 @@
   <% if user_not_logged_in? %>
     <div class="text-center">
       <h2 class="text-primary"><%= t("welcome") %></h2>
-      <p class="lead">Please login or sign up to access the classroom.</p>
+      <p class="lead"><%= t("login_or_signup_message")%></p>
     </div>
   <% else %>
     <div class="text-center">

@@ -8,7 +8,7 @@ module V1
         desc "Fetch all assignments"
         get do
           assignments = Assignment.all
-          present assignments
+          present assignments, with: V1::Entities::Assignments
         end
 
         desc "Fetch a specific assignment"
@@ -17,7 +17,7 @@ module V1
         end
         get ":id" do
           assignment = Assignment.find(params[:id])
-          present assignment
+          present assignment, with: V1::Entities::Assignments
         end
 
         desc "Create a new assignment"
@@ -30,7 +30,7 @@ module V1
         post do
           assignment = Assignment.new(declared(params))
           if assignment.save
-            present assignment
+            present assignment, with: V1::Entities::Assignments
           else
             error!({ error: assignment.errors.full_messages }, 422)
           end
@@ -47,7 +47,7 @@ module V1
         put ":id" do
           assignment = Assignment.find(params[:id])
           if assignment.update(declared(params, include_missing: false))
-            present assignment
+            present assignment, with: V1::Entities::Assignments
           else
             error!({ error: assignment.errors.full_messages }, 422)
           end

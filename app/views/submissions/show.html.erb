@@ -28,7 +28,9 @@
                 </div>
             <% end %>
         </ul>
+        <%if !current_user.teacher?%>
         <%= link_to "Edit this submission", edit_classroom_assignment_submission_path(@classroom, @assignment, @submission), class: 'btn btn-outline-info btn-sm mb-3' %>
+        <%end%>
     <% else %>
         <p>No files attached.</p>
         <%= link_to "Submit your work for this assignment", new_classroom_assignment_submission_path(@classroom, @assignment), class: 'btn btn-outline-success btn-sm' %>
