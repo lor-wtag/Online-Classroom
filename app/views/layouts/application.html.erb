@@ -23,6 +23,7 @@
     <div><%=notice%></div>
     <div><%=alert%></div>
     <% if user_logged_in?%>
+      <h4><%=current_user.role%></h4>
       <%= link_to "Profile", user_path(current_user.id)%>
       <%= button_to "Log out", session_path(locale: I18n.locale), method: :delete%>
     <%else%>

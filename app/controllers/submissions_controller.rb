@@ -49,6 +49,7 @@ class SubmissionsController < ApplicationController
 
   def show
     @submission = @assignment.submissions.find(params[:id])
+    @comment = Comment.new
   end
 
   def grade

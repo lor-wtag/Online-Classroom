@@ -28,6 +28,7 @@ class AssignmentsController < ApplicationController
   def show
     @assignment= @classroom.assignments.find(params[:id])
     @submission = @assignment.submissions.find_by(user: current_user)
+    @comment = Comment.new
   end
 
   def edit

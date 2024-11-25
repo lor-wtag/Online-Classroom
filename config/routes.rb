@@ -26,10 +26,12 @@ Rails.application.routes.draw do
         get :join
       end
       resources :assignments do
+        resources :comments
         member do
           get :delete
         end
         resources :submissions do
+          resources :comments
           member do
             patch :grade
           end
