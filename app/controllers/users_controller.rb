@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users=User.all
+    @q = User.ransack(params[:q])
+    @users = @q.result.order(:role)
   end
 
   def show
@@ -24,7 +25,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    puts "+++++++++++++++++++++++++++++++++++++#{params.inspect}"
     @user= User.find(params[:id])
   end
 

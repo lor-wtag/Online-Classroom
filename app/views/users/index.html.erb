@@ -1,28 +1,29 @@
 <div class="user index">
-    <h2>All Registered Users</h2>
-    <%if @users.empty?%>
-        <h3>No users found<h3>
-    <%else%>
+    <h2><%= t('headers.all_users') %></h2>
+    <% if @users.empty? %>
+        <h3><%= t('messages.no_users_found') %></h3>
+    <% else %>
         <table class="listing" summary="User List">
             <tr class="header">
                 <th><%= t('table_headers.number') %></th>
-                <th><%= t('table_headers.name') %></th>
+                <th><%= sort_link(@q, :name, t('table_headers.name')) %></th>
                 <th><%= t('table_headers.email') %></th>
-                <th><%= t('table_headers.role') %></th>
+                <th><%= sort_link(@q, :role, t('table_headers.role')) %></th>
                 <th><%= t('table_headers.actions') %></th>
             </tr>
-            <%@users.each do |user| %>
+            <% @users.each do |user| %>
             <tr>
-                <td><%= user.id%></td>
-                <td><%= user.name%></td>
-                <td><%= user.email%></td>
-                <td><%= user.role%></td>
+                <td><%= user.id %></td>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.role.humanize %></td>
                 <td class="actions">
-                    <%=link_to("Show", user_path(user),:class => "action edit")%>
-                    <%=link_to("Edit", edit_user_path(user),:class => "action edit")%>
+                    <%= link_to t('actions.show'), user_path(user), class: "action show" %>
+                    <%= link_to t('actions.edit'), edit_user_path(user), class: "action edit" %>
+                    <%= link_to t('actions.delete'), user_path(user), method: :delete, data: { confirm: t('actions.confirm_delete') }, class: "action delete" %>
                 </td>
             </tr>
-            <%end%>
+            <% end %>
         </table>
-    <%end%>
+    <% end %>
 </div>
