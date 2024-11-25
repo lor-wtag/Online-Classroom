@@ -1,0 +1,27 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+
+<div class="post-comments">
+  <h3>Comments:</h3>
+
+  <%= form_with(model: [@classroom, @post, @comment], local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :content, 'Your Comment' %>
+      <%= f.text_area :content, class: 'form-control' %>
+    </div>
+    <%= f.submit 'Post Comment', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
+<h3>All Comments:</h3>
+<%if @post.comments.any?%>
+  <% @post.comments.each do |comment| %>
+    <div class="comment">
+      <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+    </div>
+  <% end %>
+<%else%>
+  <p>No comments for this post</p>
+<%end%>
+
+<%= link_to 'Back to Posts', classroom_posts_path(@classroom), class: 'btn btn-secondary' %>

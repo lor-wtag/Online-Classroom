@@ -1,0 +1,5 @@
+<h1>New Post in <%= @post.classroom.name %></h1>
+<p>Hello <%= @user.name %>,</p>
+<p>A new post titled "<%= @post.title %>" has been added to your classroom.</p>
+<p><%= @post.content %></p>
+<p>Click to<%= link_to 'View Post', classroom_post_url(@classroom, @post, locale: I18n.locale) %></p>

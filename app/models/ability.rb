@@ -19,12 +19,17 @@ class Ability
         student.enrollments.joins(:classroom).where(classrooms: { user_id: user.id }).exists?
       end
       can :manage, Assignment, classroom: { user_id: user.id }
+      can [:new, :create], Post, user_id: user.id
+      can :manage, Post, classroom: { user_id: user.id }
       can :grade, Submission, assignment: { classroom: { user_id: user.id } }
       can :read, Submission, assignment: { classroom: { user_id: user.id } }
       can :read, Comment, commentable_type: "Assignment", commentable: { classroom: { user_id: user.id } }
-      can [:new, :create], Comment, commentable_type: "Assignment", commentable: { classroom: { user_id: user.id } }
+      can [:new, :create], Comment, commentable_type: "Assignment"
       can :read, Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
-      can [:new, :create], Comment, commentable_type: "Submission", commentable: { assignment: { classroom: { user_id: user.id } } }
+      can [:new, :create], Comment, commentable_type: "Submission"
+      can :read, Comment, commentable_type: "Post", commentable: { classroom: { user_id: user.id } }
+      can [:new, :create], Comment, commentable_type: "Post"
+      
     elsif user.student?
       can [ :show, :update, :edit, :destroy ], User, id: user.id
       can :read, Classroom, enrollments: { user_id: user.id }
@@ -34,6 +39,9 @@ class Ability
       can :enroll, Classroom
       can [ :delete, :destroy ], Enrollment, user_id: user.id
       can :read, Assignment, classroom: { enrollments: { user_id: user.id } }
+      can [:read], Post, classroom: { enrollments: { user_id: user.id } }
+      can [:edit, :update, :destroy, :delete], Post, user_id: user.id
+      can [:new, :create], Post, user_id: user.id
       can [ :new, :create ], Submission
       can :read, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
       can :edit, Submission, assignment: { classroom: { enrollments: { user_id: user.id } } }
@@ -42,6 +50,8 @@ class Ability
       can [:new, :create], Comment, commentable_type: "Assignment"
       can :read, Comment, commentable_type: "Submission", commentable: { user_id: user.id }
       can [:new, :create], Comment, commentable_type: "Submission"
+      can :read, Comment, commentable_type: "Post", commentable: { classroom: { enrollments: { user_id: user.id } } }
+      can [:new, :create], Comment, commentable_type: "Post"
 
 
     end

@@ -1,0 +1,28 @@
+<h1>Posts in <%= @classroom.name %></h1>
+
+<%= link_to 'Create a New Post', new_classroom_post_path(@classroom), class: 'btn btn-primary' %>
+
+<% if @posts.any? %>
+  <div class="posts-list">
+    <% @posts.each do |post| %>
+      <div class="post-item">
+        <h3><%= post.title %></h3>
+        <p><%= post.content %></p>
+        <h5><%= "#{post.user.role }: #{post.user.name}"%></h5>
+        
+        <div class="post-actions">
+          <%= link_to 'View', classroom_post_path(@classroom, post), class: 'btn btn-info' %>
+          <% if current_user == post.user || current_user.admin?%>
+            <%= link_to 'Edit', edit_classroom_post_path(@classroom, post), class: 'btn btn-warning' %>
+          <%end%>
+          <% if current_user == post.user || current_user.admin? || current_user==@classroom.teacher%>
+            <%= link_to 'Delete', delete_classroom_post_path(@classroom, post), class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+  </div>
+<% else %>
+  <p>No posts available in this classroom.</p>
+<% end %>

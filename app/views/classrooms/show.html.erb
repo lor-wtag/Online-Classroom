@@ -44,5 +44,7 @@
         <%= link_to "Create a new Assignment for this Class", new_classroom_assignment_path( @classroom) %>
         
     <% end %>
+    <%= link_to "Create a post in this classroom", new_classroom_post_path(@classroom)%>
+    <%= link_to "See posts for this classroom", classroom_posts_path(@classroom)%>
     <%= link_to "See assignments for this classroom", classroom_assignments_path(@classroom)%>
 </div>
