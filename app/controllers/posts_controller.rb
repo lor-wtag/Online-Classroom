@@ -33,7 +33,7 @@ class PostsController < ApplicationController
   def update
     @post = @classroom.posts.find(params[:id])
     if @post.update(post_params)
-      redirect_to classroom_post_path(@classroom, @post), notice: 'Post was successfully updated.'
+      redirect_to classroom_post_path(@classroom, @post), notice: "Post was successfully updated."
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
   def destroy
     @post = @classroom.posts.find(params[:id])
     @post.destroy
-    redirect_to classroom_posts_path(@classroom), notice: 'Post was successfully deleted.'
+    redirect_to classroom_posts_path(@classroom), notice: "Post was successfully deleted."
   end
 
 
