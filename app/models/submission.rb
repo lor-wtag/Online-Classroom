@@ -11,4 +11,11 @@ class Submission < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     %w[index grade created_at feedback]
   end
+  before_create :check_if_late
+
+  private
+
+  def check_if_late
+    self.late = assignment.due_date < created_at
+  end
 end

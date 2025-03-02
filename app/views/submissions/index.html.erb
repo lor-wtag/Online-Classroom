@@ -15,6 +15,7 @@
             <th><%= sort_link(@q, :grade, "Grade") %></th>
             <th>Feedback</th>
             <th><%= sort_link(@q, :created_at, "Submitted At") %></th>
+            <th>Status</th> 
             <th>Actions</th>
           </tr>
         </thead>
@@ -43,6 +44,9 @@
               </td>
               <td class="text-nowrap text-center">
                 <%= submission.created_at.strftime('%B %d, %Y %I:%M %p') %>
+              </td>
+              <td class="text-center">
+                <%= submission_status(submission) %>
               </td>
               <td class="text-center">
                 <%= link_to classroom_assignment_submission_path(@classroom, @assignment, submission), class: 'btn btn-outline-primary btn-sm' do %>
