@@ -1,28 +1,51 @@
-<h1>Posts in <%= @classroom.name %></h1>
-
-<%= link_to 'Create a New Post', new_classroom_post_path(@classroom), class: 'btn btn-primary' %>
-
-<% if @posts.any? %>
-  <div class="posts-list">
-    <% @posts.each do |post| %>
-      <div class="post-item">
-        <h3><%= post.title %></h3>
-        <p><%= post.content %></p>
-        <h5><%= "#{post.user.role }: #{post.user.name}"%></h5>
-        
-        <div class="post-actions">
-          <%= link_to 'View', classroom_post_path(@classroom, post), class: 'btn btn-info' %>
-          <% if current_user == post.user || current_user.admin?%>
-            <%= link_to 'Edit', edit_classroom_post_path(@classroom, post), class: 'btn btn-warning' %>
-          <%end%>
-          <% if current_user == post.user || current_user.admin? || current_user==@classroom.teacher%>
-            <%= link_to 'Delete', delete_classroom_post_path(@classroom, post), class: 'btn btn-danger' %>
-          <% end %>
-        </div>
-      </div>
-      <hr>
-    <% end %>
+<div class="container mt-5">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-md-12 text-center">
+      <h1 class="text-primary">Posts in <%= @classroom.name %></h1>
+    </div>
   </div>
-<% else %>
-  <p>No posts available in this classroom.</p>
-<% end %>
+
+  <!-- Action Buttons -->
+  <div class="row mb-4">
+    <div class="col-md-12 d-flex justify-content-between">
+      <%= link_to 'Create a New Post', new_classroom_post_path(@classroom), class: 'btn btn-success' %>
+      <%= link_to 'Back to Classroom', classroom_path(@classroom), class: 'btn btn-secondary' %>
+    </div>
+  </div>
+
+  <!-- Posts List -->
+  <% if @posts.any? %>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-md-12 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h3 class="card-title text-primary"><%= post.title %></h3>
+              <p class="card-text"><%= truncate(post.content, length: 150) %></p>
+              <h5 class="text-muted"><%= "#{post.user.role.capitalize}: #{post.user.name}" %></h5>
+              
+              <!-- Post Actions -->
+              <div class="d-flex mt-3">
+                <%= link_to 'View', classroom_post_path(@classroom, post), class: 'btn btn-outline-primary me-2' %>
+                <% if current_user == post.user || current_user.admin? %>
+                  <%= link_to 'Edit', edit_classroom_post_path(@classroom, post), class: 'btn btn-outline-info me-2' %>
+                <% end %>
+                <% if current_user == post.user || current_user.admin? || current_user == @classroom.teacher %>
+                  <%= link_to 'Delete', delete_classroom_post_path(@classroom, post), class: 'btn btn-outline-danger' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <!-- No Posts Message -->
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p class="text-muted">No posts available in this classroom.</p>
+      </div>
+    </div>
+  <% end %>
+</div>

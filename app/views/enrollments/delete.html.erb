@@ -1,25 +1,32 @@
-<%= link_to("Go Back", classrooms_path, class: "back-link") %>
-<%if current_user.student?%>
-<div class="leave classroom">
+<%= link_to "Go Back", classrooms_path, class: "back-link btn btn-secondary mb-3" %>
+
+<% if current_user.student? %>
+  <div class="leave-classroom mt-4">
+    <div class="alert alert-warning">
+      <p><strong>Are you sure you want to leave this classroom?</strong></p>
+      <p><strong>Classroom Name:</strong> <%= @classroom.name %></p>
+      <p><strong>Created By:</strong> <%= @classroom.teacher.name %></p>
+    </div>
+    
     <%= form_with url: classroom_enrollment_path(classroom_id: @classroom.id, id: @classroom.enrollments.find_by(user_id: current_user.id)), method: :delete do |f| %>
-        <p>Are you sure you want to leave this classroom?</p>
-        <p><strong>Classroom Name:</strong> <%= @classroom.name %></p>
-        <p><strong>Created By:</strong> <%= @classroom.teacher.name %></p>
-        <div class="form buttons">
-            <%= f.submit("Leave this classroom") %>
-        </div>
+      <div class="form-group">
+        <%= f.submit "Leave this classroom", class: "btn btn-danger btn-block" %>
+      </div>
     <% end %>
-</div>
-<%else%>
-<div class="remove student">
-    <h1>Remove Student from <%=@classroom.name%></h1>
+  </div>
+<% else %>
+  <div class="remove-student mt-4">
+    <div class="alert alert-danger">
+      <h4>Remove Student from <%= @classroom.name %></h4>
+      <p><strong>Are you sure you want to remove the student with the following details?</strong></p>
+      <p><strong>Name:</strong> <%= @enrollment.user.name %></p>
+      <p><strong>Email:</strong> <%= @enrollment.user.email %></p>
+    </div>
+    
     <%= form_with url: classroom_enrollment_path(classroom_id: @classroom.id, id: @enrollment.id), method: :delete do |f| %>
-        <p>Are you sure you want to remove the student with the following details?</p>
-        <p><strong>Name:</strong> <%= @enrollment.user.name %></p>
-        <p><strong>Email:</strong> <%= @enrollment.user.email %></p>
-        <div class="form buttons">
-            <%= f.submit("Remove Student from this classroom") %>
-        </div>
+      <div class="form-group">
+        <%= f.submit "Remove Student from this classroom", class: "btn btn-danger btn-block" %>
+      </div>
     <% end %>
-</div>
-<%end%>
+  </div>
+<% end %>

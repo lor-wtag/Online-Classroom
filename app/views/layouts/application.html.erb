@@ -20,19 +20,70 @@
   </head>
 
   <body>
-    <div><%=notice%></div>
-    <div><%=alert%></div>
-    <% if user_logged_in?%>
-      <h2><%="#{current_user.role}: #{current_user.name}"%></h2>
-      <%= link_to "Profile", user_path(current_user.id)%>
-      <%= button_to "Log out", session_path(locale: I18n.locale), method: :delete%>
-    <%else%>
-      <%= link_to "Sign Up?", new_user_path%>
-      <%=link_to "Login", new_session_path%>
-    <%end%>
-    <%= link_to "English", url_for(locale: 'en') %> |
-      <%= link_to "Bangla", url_for(locale: 'be') %>
-    <%=link_to "Home", root_path%>
-    <%= yield %>
-  </body>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f06c7c;">
+    <div class="container-fluid">
+      <%= link_to "Home", root_path, class: "navbar-brand" %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Language
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><%= link_to "English", url_for(locale: 'en'), class: "dropdown-item" %></li>
+              <li><%= link_to "Bangla", url_for(locale: 'be'), class: "dropdown-item" %></li>
+            </ul>
+          </li>
+
+          <% if user_logged_in? %>
+            <li class="nav-item">
+              <%= link_to "Profile", user_path(current_user.id), class: "nav-link" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Sign Up", new_user_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Login", new_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+        <% if user_logged_in? %>
+         <span class="navbar-text ms-auto">
+            <%="#{current_user.role}: #{current_user.name}"%>
+          </span>
+          <ul class="navbar-nav ms-3">
+            <li class="nav-item">
+              <%= button_to "Log out", session_path(locale: I18n.locale), method: :delete, class: "btn btn-danger" %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+<% if notice.present? || alert.present? %>
+  <div class="container mt-3">
+    <% if notice.present? %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= notice %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+  <%= yield %>
+</body>
+
+
 </html>

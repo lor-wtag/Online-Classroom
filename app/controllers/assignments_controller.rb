@@ -12,11 +12,15 @@ class AssignmentsController < ApplicationController
   end
 
   def index
-    @assignments= @classroom.assignments
+    @q = @classroom.assignments.ransack(params[:q])
+    @assignments = @q.result
   end
 
   def create
     @assignment= @classroom.assignments.build(assignment_params)
+    if params[:assignment][:files].present?
+      @assignment.files.attach(params[:assignment][:files])
+    end
     if @assignment.save
       AssignmentNotificationJob.perform_later(@classroom, @assignment)
       redirect_to classroom_path(@classroom), notice: "Assignment created successfully."

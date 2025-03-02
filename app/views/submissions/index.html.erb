@@ -1,40 +1,62 @@
-<h3>Submissions for <%= @assignment.title %>:</h3>
+<div class="container mt-4">
+  <div class="mb-4">
+    <%= link_to 'Back to Assignment', classroom_assignment_path(@classroom, @assignment), class: 'btn btn-secondary' %>
+  </div>
 
-<% if @assignment.submissions.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Student</th>
-        <th>Submission Files</th>
-        <th>Grade</th>
-        <th>Feedback</th>
-        <th>Submitted At</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @assignment.submissions.each do |submission| %>
-        <tr>
-          <td><%= submission.user.name %></td>
-          <td>
-            <% if submission.files.attached? %>
-              <% submission.files.each do |file| %>
-                <%= link_to file.filename.to_s, rails_blob_path(file, disposition: "inline") %><br>
-              <% end %>
-            <% else %>
-              No files uploaded
-            <% end %>
-          </td>
-          <td><%= submission.grade || "Not graded" %></td>
-          <td><%= submission.feedback || "No feedback" %></td>
-          <td><%= submission.created_at.strftime('%B %d, %Y %I:%M %p') %></td>
-          <td>
-            <%= link_to "View", classroom_assignment_submission_path(@classroom, @assignment, submission) %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No submissions yet.</p>
-<% end %>
+  <h3 class="mb-3">Submissions for <%= @assignment.title %></h3>
+
+  <% if @assignment.submissions.any? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead class="table-dark">
+          <tr class="text-center">
+            <th>Student</th>
+            <th>Submission Files</th>
+            <th><%= sort_link(@q, :grade, "Grade") %></th>
+            <th>Feedback</th>
+            <th><%= sort_link(@q, :created_at, "Submitted At") %></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @submissions.each do |submission| %>
+            <tr>
+              <td><%= submission.user.name %></td>
+              <td>
+                <% if submission.files.attached? %>
+                  <% submission.files.each do |file| %>
+                    <%= link_to file.filename.to_s, rails_blob_path(file, disposition: "inline"), class: 'text-decoration-none' %><br>
+                  <% end %>
+                <% else %>
+                  <span class="text-muted">No files uploaded</span>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <% if submission.grade %>
+                  <span class="badge bg-success"><%= submission.grade %></span>
+                <% else %>
+                  <span class="text-muted">Not graded</span>
+                <% end %>
+              </td>
+              <td>
+                <%= submission.feedback.presence || content_tag(:span, "No feedback", class: "text-muted") %>
+              </td>
+              <td class="text-nowrap text-center">
+                <%= submission.created_at.strftime('%B %d, %Y %I:%M %p') %>
+              </td>
+              <td class="text-center">
+                <%= link_to classroom_assignment_submission_path(@classroom, @assignment, submission), class: 'btn btn-outline-primary btn-sm' do %>
+                  <i class="bi bi-eye"></i> View
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      <p class="mb-0">No submissions yet.</p>
+    </div>
+  <% end %>
+</div>

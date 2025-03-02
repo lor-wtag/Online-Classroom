@@ -3,7 +3,8 @@
     <% if @users.empty? %>
         <h3><%= t('messages.no_users_found') %></h3>
     <% else %>
-        <table class="listing" summary="User List">
+        <table class="table table-bordered table-hover" summary="User List">
+            <thead class="table-dark">
             <tr class="header">
                 <th><%= t('table_headers.number') %></th>
                 <th><%= sort_link(@q, :name, t('table_headers.name')) %></th>
@@ -11,6 +12,7 @@
                 <th><%= sort_link(@q, :role, t('table_headers.role')) %></th>
                 <th><%= t('table_headers.actions') %></th>
             </tr>
+            </thead>
             <% @users.each do |user| %>
             <tr>
                 <td><%= user.id %></td>
@@ -18,9 +20,9 @@
                 <td><%= user.email %></td>
                 <td><%= user.role.humanize %></td>
                 <td class="actions">
-                    <%= link_to t('actions.show'), user_path(user), class: "action show" %>
-                    <%= link_to t('actions.edit'), edit_user_path(user), class: "action edit" %>
-                    <%= link_to t('actions.delete'), user_path(user), method: :delete, data: { confirm: t('actions.confirm_delete') }, class: "action delete" %>
+                    <%= link_to t('actions.show'), user_path(user), class: 'btn btn-outline-primary btn-sm'%>
+                    <%= link_to t('actions.edit'), edit_user_path(user), class: 'btn btn-outline-secondary btn-sm' %>
+                    <%= link_to t('actions.delete'), delete_user_path(user), method: :delete, class: 'btn btn-outline-danger btn-sm'%>
                 </td>
             </tr>
             <% end %>

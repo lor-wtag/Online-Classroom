@@ -30,6 +30,7 @@
 en:
   hello: "Hello world"
   welcome: "Welcome to the Classroom"
+  login_or_signup_message: "Please login or sign up to access the classroom."
   titles:
     default: "Online Classroom"
   table_headers:

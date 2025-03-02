@@ -1,27 +1,58 @@
-   <h3>Assignments for this Classroom:</h3>
-    <% if @classroom.assignments.any? %>
-      <table>
-        <thead>
-          <tr>
-            <th>Assignment Title</th>
-            <th>Description</th>
-            <th>Due Date</th>
-            <% if current_user.teacher?%>
-                <th>Actions</th>
-            <%end%>
-          </tr>
-        </thead>
-        <tbody>
-          <% @classroom.assignments.each do |assignment| %>
-            <tr>
-              <td><%= assignment.title %></td>
-              <td><%= assignment.description %></td>
-              <td><%= assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></td>
-              <td><%= link_to "View Assignment", classroom_assignment_path(@classroom, assignment) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p>No assignments yet.</p>
-    <% end %>
+<div class="container mt-5">
+
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <%= link_to 'Back to Classroom', classroom_path(@classroom), class: 'btn btn-outline-secondary' %>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-12 text-center">
+      <h3 class="text-primary">Assignments for <%= @classroom.name %></h3>
+      <p class="text-muted">Below is the list of assignments for this classroom.</p>
+    </div>
+  </div>
+
+
+  <% if @classroom.assignments.any? %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-bordered table-hover align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th><%= sort_link(@q, :title, "Title") %></th>
+                  <th>Description</th>
+                  <th><%= sort_link(@q, :due_date, "Due Date") %></th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @assignments.each_with_index do |assignment, index| %>
+                  <tr>
+                    <td><strong><%= index + 1 %></strong></td>
+                    <td><%= assignment.title %></td>
+                    <td><%= truncate(assignment.description, length: 50) %></td>
+                    <td><%= assignment.due_date.strftime('%B %d, %Y %I:%M %p') %></td>
+                    <td class="text-center">
+                      <%= link_to 'View Assignment', classroom_assignment_path(@classroom, assignment), class: 'btn btn-outline-primary btn-sm' %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p class="text-muted">No assignments yet. Stay tuned!</p>
+      </div>
+    </div>
+  <% end %>
+</div>

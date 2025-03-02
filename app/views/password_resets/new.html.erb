@@ -1,15 +1,16 @@
-<h3>Provide your Email</h3>
-<div class="password-reset">
-    <%= form_with model: @user, url: password_reset_path do |f| %>
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Provide Your Email</h3>
 
-        <table summary="User form field">
-        <tr>
-            <th>Email</th>
-            <td><%= f.text_field :email %></td>
-        </tr>
-        </table>
-        <div class="form buttons">
-        <%= f.submit "Send Email for Resetting Password?" %>
-        </div>
+  <div class="card shadow-sm p-4">
+    <%= form_with model: @user, url: password_reset_path, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :email, "Email Address", class: 'form-label' %>
+        <%= f.text_field :email, class: 'form-control', placeholder: 'Enter your email address' %>
+      </div>
+
+      <div class="form-buttons text-center">
+        <%= f.submit "Send Email for Resetting Password", class: 'btn btn-primary w-100' %>
+      </div>
     <% end %>
+  </div>
 </div>
